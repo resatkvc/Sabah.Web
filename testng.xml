@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Sabah.com Test Suite" verbose="2" parallel="tests" thread-count="1">
+    
+    <!-- Dinleyiciler -->
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    
+    <!-- Parametreler -->
+    <parameter name="browser" value="chromium"/>
+    <parameter name="headless" value="false"/>
+    
+    <!-- Test Grupları -->
+    <test name="Sabah.com Smoke Testleri">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="sabah.com.tests.*"/>
+        </packages>
+    </test>
+    
+    <test name="Sabah.com Regresyon Testleri">
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="sabah.com.tests.*"/>
+        </packages>
+    </test>
+    
+    <!-- Tüm Testler -->
+    <test name="Tüm Testler">
+        <packages>
+            <package name="sabah.com.tests.*"/>
+        </packages>
+    </test>
+    
+</suite>
