@@ -132,6 +132,9 @@ public class ConfigReader {
     public static final String TEST_ENVIRONMENT = "test.environment";
     public static final String PARALLEL_TESTS = "parallel.tests";
     public static final String PARALLEL_THREAD_COUNT = "parallel.thread.count";
+    public static final String VIDEO_RECORD = "video.record";
+    public static final String VIDEO_RECORD_DIR = "video.record.dir";
+    public static final String TRACING_ENABLED = "tracing.enabled";
     public static final String REPORT_DIR = "report.dir";
     public static final String REPORT_HISTORY_DIR = "report.history.dir";
 }

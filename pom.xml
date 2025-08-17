@@ -18,8 +18,7 @@
         <testng.version>7.9.0</testng.version>
         <slf4j.version>2.0.9</slf4j.version>
         <logback.version>1.4.14</logback.version>
-        <allure.version>2.25.0</allure.version>
-        <aspectj.version>1.9.21</aspectj.version>
+        <allure.version>2.27.0</allure.version>
         <maven.surefire.version>3.2.3</maven.surefire.version>
     </properties>
 
@@ -52,19 +51,14 @@
             <version>${logback.version}</version>
         </dependency>
 
-        <!-- Allure TestNG -->
+                <!-- Allure TestNG -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
         </dependency>
 
-        <!-- Allure Playwright -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-playwright</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
+
 
         <!-- Apache Commons Configuration -->
         <dependency>
@@ -85,20 +79,10 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <!-- Allure Maven Plugin -->

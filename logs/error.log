@@ -1,0 +1,814 @@
+2025-08-17 21:43:11.446 [main] ERROR sabah.com.base.BasePage - Header yükleme hatası: Error {
+  message='state: expected one of (attached|detached|visible|hidden)
+  name='Error
+  stack='Error: state: expected one of (attached|detached|visible|hidden)
+    at C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\validatorPrimitives.js:121:33
+    at C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\validatorPrimitives.js:90:12
+    at C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\validatorPrimitives.js:107:21
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:285:21)
+    at transport.onmessage (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\cli\driver.js:52:57)
+    at Immediate._onImmediate (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\transport.js:77:34)
+    at process.processImmediate (node:internal/timers:478:21)
+}
+2025-08-17 21:43:11.450 [main] ERROR sabah.com.base.BasePage - Header yüklenemedi
+2025-08-17 21:43:11.560 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testHomePageLoading
+2025-08-17 21:43:11.562 [main] ERROR sabah.com.base.BaseTest - Hata: 
+java.lang.AssertionError: Ana sayfa başarıyla yüklenemedi! expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at sabah.com.tests.HomePageTest.testHomePageLoading(HomePageTest.java:30)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+2025-08-17 21:43:24.001 [main] ERROR sabah.com.base.BasePage - Header yükleme hatası: Error {
+  message='state: expected one of (attached|detached|visible|hidden)
+  name='Error
+  stack='Error: state: expected one of (attached|detached|visible|hidden)
+    at C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\validatorPrimitives.js:121:33
+    at C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\validatorPrimitives.js:90:12
+    at C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\validatorPrimitives.js:107:21
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:285:21)
+    at transport.onmessage (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\cli\driver.js:52:57)
+    at Immediate._onImmediate (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\protocol\transport.js:77:34)
+    at process.processImmediate (node:internal/timers:478:21)
+}
+2025-08-17 21:43:24.006 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testHeaderElements
+2025-08-17 21:43:24.006 [main] ERROR sabah.com.base.BaseTest - Hata: 
+java.lang.AssertionError: Header tam olarak yüklenemedi! expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at sabah.com.tests.HomePageTest.testHeaderElements(HomePageTest.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+2025-08-17 21:44:05.418 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testHamburgerMenuToggle
+2025-08-17 21:44:05.418 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.openHamburgerMenu(HeaderComponent.java:316)
+	at sabah.com.tests.HomePageTest.testHamburgerMenuToggle(HomePageTest.java:84)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 39 common frames omitted
+2025-08-17 21:44:45.538 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testHamburgerMenuCloseWithEsc
+2025-08-17 21:44:45.538 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.openHamburgerMenu(HeaderComponent.java:316)
+	at sabah.com.tests.HomePageTest.testHamburgerMenuCloseWithEsc(HomePageTest.java:109)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 39 common frames omitted
+2025-08-17 21:44:56.346 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testMainMenuNavigation
+2025-08-17 21:44:56.346 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.PlaywrightException: Error {
+  message='Error: strict mode violation: locator("a:has-text('GÜNDEM')") resolved to 4 elements:
+    1) <a href="/gundem" target="_blank">Gündem</a> aka locator("#navobile-navigation").getByText("Gündem")
+    2) <a href="/gundem" target="_blank">Gündem</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gündem").setExact(true))
+    3) <a class="" target="_blank" title="Hülya Avşar mutf…>…</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Hülya Avşar mutfağa girdi! O anlar gündem oldu: \"Gerçek yüzüm\""))
+    4) <a href="/gundem">Gündem</a> aka getByText("Gündem").nth(4)
+
+  name='Error
+  stack='Error: Error: strict mode violation: locator("a:has-text('GÜNDEM')") resolved to 4 elements:
+    1) <a href="/gundem" target="_blank">Gündem</a> aka locator("#navobile-navigation").getByText("Gündem")
+    2) <a href="/gundem" target="_blank">Gündem</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gündem").setExact(true))
+    3) <a class="" target="_blank" title="Hülya Avşar mutf…>…</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Hülya Avşar mutfağa girdi! O anlar gündem oldu: \"Gerçek yüzüm\""))
+    4) <a href="/gundem">Gündem</a> aka getByText("Gündem").nth(4)
+
+    at CRExecutionContext.evaluateWithArguments (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\chromium\crExecutionContext.js:92:33)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async evaluateExpression (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\javascript.js:241:12)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:941:22
+    at async Frame.retryWithProgressAndTimeouts (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:912:24)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:996:29
+    at async ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:91:22)
+    at async FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:12)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:96:14)
+}
+Call log:
+- waiting for locator("a:has-text('GÜNDEM')")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:54)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.clickMainMenuItem(HeaderComponent.java:228)
+	at sabah.com.pages.HomePage.navigateToCategory(HomePage.java:153)
+	at sabah.com.tests.HomePageTest.testMainMenuNavigation(HomePageTest.java:132)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message='Error: strict mode violation: locator("a:has-text('GÜNDEM')") resolved to 4 elements:
+    1) <a href="/gundem" target="_blank">Gündem</a> aka locator("#navobile-navigation").getByText("Gündem")
+    2) <a href="/gundem" target="_blank">Gündem</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gündem").setExact(true))
+    3) <a class="" target="_blank" title="Hülya Avşar mutf…>…</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Hülya Avşar mutfağa girdi! O anlar gündem oldu: \"Gerçek yüzüm\""))
+    4) <a href="/gundem">Gündem</a> aka getByText("Gündem").nth(4)
+
+  name='Error
+  stack='Error: Error: strict mode violation: locator("a:has-text('GÜNDEM')") resolved to 4 elements:
+    1) <a href="/gundem" target="_blank">Gündem</a> aka locator("#navobile-navigation").getByText("Gündem")
+    2) <a href="/gundem" target="_blank">Gündem</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gündem").setExact(true))
+    3) <a class="" target="_blank" title="Hülya Avşar mutf…>…</a> aka getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Hülya Avşar mutfağa girdi! O anlar gündem oldu: \"Gerçek yüzüm\""))
+    4) <a href="/gundem">Gündem</a> aka getByText("Gündem").nth(4)
+
+    at CRExecutionContext.evaluateWithArguments (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\chromium\crExecutionContext.js:92:33)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async evaluateExpression (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\javascript.js:241:12)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:941:22
+    at async Frame.retryWithProgressAndTimeouts (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:912:24)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:996:29
+    at async ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:91:22)
+    at async FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:12)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:96:14)
+}
+Call log:
+- waiting for locator("a:has-text('GÜNDEM')")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:257)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 40 common frames omitted
+2025-08-17 21:45:35.528 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testBorsaDataDisplay
+2025-08-17 21:45:35.528 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame._callOnElementOnceMatches (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1399:23)
+    at Frame.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1056:17)
+    at FrameDispatcher.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:179:37)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".bist-data, div:has-text('Bist') + span")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.textContentImpl(FrameImpl.java:818)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$textContent$38(FrameImpl.java:809)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.FrameImpl.textContent(FrameImpl.java:809)
+	at com.microsoft.playwright.impl.LocatorImpl.textContent(LocatorImpl.java:566)
+	at com.microsoft.playwright.Locator.textContent(Locator.java:5090)
+	at sabah.com.base.BasePage.getText(BasePage.java:144)
+	at sabah.com.components.common.HeaderComponent.getBorsaData(HeaderComponent.java:292)
+	at sabah.com.pages.HomePage.checkBorsaData(HomePage.java:204)
+	at sabah.com.tests.HomePageTest.testBorsaDataDisplay(HomePageTest.java:166)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame._callOnElementOnceMatches (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1399:23)
+    at Frame.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1056:17)
+    at FrameDispatcher.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:179:37)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".bist-data, div:has-text('Bist') + span")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 38 common frames omitted
+2025-08-17 21:46:13.849 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testWeatherInfo
+2025-08-17 21:46:13.849 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame._callOnElementOnceMatches (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1399:23)
+    at Frame.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1056:17)
+    at FrameDispatcher.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:179:37)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".temperature, .weather-temp")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.textContentImpl(FrameImpl.java:818)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$textContent$38(FrameImpl.java:809)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.FrameImpl.textContent(FrameImpl.java:809)
+	at com.microsoft.playwright.impl.LocatorImpl.textContent(LocatorImpl.java:566)
+	at com.microsoft.playwright.Locator.textContent(Locator.java:5090)
+	at sabah.com.base.BasePage.getText(BasePage.java:144)
+	at sabah.com.components.common.HeaderComponent.getCurrentTemperature(HeaderComponent.java:258)
+	at sabah.com.pages.HomePage.getWeatherInfo(HomePage.java:213)
+	at sabah.com.tests.HomePageTest.testWeatherInfo(HomePageTest.java:194)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame._callOnElementOnceMatches (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1399:23)
+    at Frame.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:1056:17)
+    at FrameDispatcher.textContent (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:179:37)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".temperature, .weather-temp")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 38 common frames omitted
+2025-08-17 21:46:54.307 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testHamburgerMenuCategorySelection
+2025-08-17 21:46:54.307 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.openHamburgerMenu(HeaderComponent.java:316)
+	at sabah.com.components.common.HeaderComponent.selectFromHamburgerMenu(HeaderComponent.java:355)
+	at sabah.com.pages.HomePage.selectFromHamburgerMenu(HomePage.java:163)
+	at sabah.com.tests.HomePageTest.testHamburgerMenuCategorySelection(HomePageTest.java:215)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 41 common frames omitted
+2025-08-17 21:47:34.238 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testHamburgerMenuHoverSubMenu
+2025-08-17 21:47:34.238 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.openHamburgerMenu(HeaderComponent.java:316)
+	at sabah.com.components.common.HeaderComponent.hoverOnHamburgerMenuItem(HeaderComponent.java:367)
+	at sabah.com.tests.HomePageTest.testHamburgerMenuHoverSubMenu(HomePageTest.java:238)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 40 common frames omitted
+2025-08-17 21:48:14.378 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testLiveStreamLinks
+2025-08-17 21:48:14.379 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.openHamburgerMenu(HeaderComponent.java:316)
+	at sabah.com.components.common.HeaderComponent.clickCanliYayinLink(HeaderComponent.java:400)
+	at sabah.com.tests.HomePageTest.testLiveStreamLinks(HomePageTest.java:263)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.TimeoutError: Error {
+  message='Timeout 30000ms exceeded.
+  name='TimeoutError
+  stack='TimeoutError: Timeout 30000ms exceeded.
+    at ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:87:26)
+    at Frame.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:995:23)
+    at FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:30)
+    at FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:94:40)
+    at DispatcherConnection.dispatch (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:362:39)
+}
+Call log:
+- waiting for locator(".hamburger-menu, .menu-toggle, button[aria-label*='Menü']")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 40 common frames omitted
+2025-08-17 21:48:30.771 [main] ERROR sabah.com.base.BaseTest - ✗ Test BAŞARISIZ: testSocialMediaLinks
+2025-08-17 21:48:30.771 [main] ERROR sabah.com.base.BaseTest - Hata: 
+com.microsoft.playwright.PlaywrightException: Error {
+  message='Error: strict mode violation: locator("a[href*='facebook.com']") resolved to 4 elements:
+    1) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navobile-navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    2) <a class="face" href="https://www.facebook.com/saba…>…</a> aka locator("ul").filter(new Locator.FilterOptions().setHasText("CANLI YAYIN TV YAYINLARI ATV")).getByRole(AriaRole.LIST).getByRole(AriaRole.LINK).first()
+    3) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    4) <a class="face" target="_blank" href="https://www.f…>…</a> aka locator(".menuSideBar > .mediaShare > ul > li > .face")
+
+  name='Error
+  stack='Error: Error: strict mode violation: locator("a[href*='facebook.com']") resolved to 4 elements:
+    1) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navobile-navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    2) <a class="face" href="https://www.facebook.com/saba…>…</a> aka locator("ul").filter(new Locator.FilterOptions().setHasText("CANLI YAYIN TV YAYINLARI ATV")).getByRole(AriaRole.LIST).getByRole(AriaRole.LINK).first()
+    3) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    4) <a class="face" target="_blank" href="https://www.f…>…</a> aka locator(".menuSideBar > .mediaShare > ul > li > .face")
+
+    at CRExecutionContext.evaluateWithArguments (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\chromium\crExecutionContext.js:92:33)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async evaluateExpression (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\javascript.js:241:12)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:941:22
+    at async Frame.retryWithProgressAndTimeouts (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:912:24)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:996:29
+    at async ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:91:22)
+    at async FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:12)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:96:14)
+}
+Call log:
+- waiting for locator("a[href*='facebook.com']")
+
+	at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:54)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
+	at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
+	at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
+	at com.microsoft.playwright.impl.FrameImpl.clickImpl(FrameImpl.java:252)
+	at com.microsoft.playwright.impl.FrameImpl.lambda$click$8(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LoggingSupport.lambda$withLogging$0(LoggingSupport.java:36)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
+	at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
+	at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:35)
+	at com.microsoft.playwright.impl.FrameImpl.click(FrameImpl.java:243)
+	at com.microsoft.playwright.impl.LocatorImpl.click(LocatorImpl.java:140)
+	at com.microsoft.playwright.Locator.click(Locator.java:2387)
+	at sabah.com.base.BasePage.click(BasePage.java:44)
+	at sabah.com.components.common.HeaderComponent.clickSocialMediaIcon(HeaderComponent.java:183)
+	at sabah.com.pages.HomePage.goToSocialMedia(HomePage.java:184)
+	at sabah.com.tests.HomePageTest.testSocialMediaLinks(HomePageTest.java:311)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:65)
+	at com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:105)
+Caused by: com.microsoft.playwright.impl.DriverException: Error {
+  message='Error: strict mode violation: locator("a[href*='facebook.com']") resolved to 4 elements:
+    1) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navobile-navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    2) <a class="face" href="https://www.facebook.com/saba…>…</a> aka locator("ul").filter(new Locator.FilterOptions().setHasText("CANLI YAYIN TV YAYINLARI ATV")).getByRole(AriaRole.LIST).getByRole(AriaRole.LINK).first()
+    3) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    4) <a class="face" target="_blank" href="https://www.f…>…</a> aka locator(".menuSideBar > .mediaShare > ul > li > .face")
+
+  name='Error
+  stack='Error: Error: strict mode violation: locator("a[href*='facebook.com']") resolved to 4 elements:
+    1) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navobile-navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    2) <a class="face" href="https://www.facebook.com/saba…>…</a> aka locator("ul").filter(new Locator.FilterOptions().setHasText("CANLI YAYIN TV YAYINLARI ATV")).getByRole(AriaRole.LIST).getByRole(AriaRole.LINK).first()
+    3) <a class="face" href="https://www.facebook.com/Saba…>…</a> aka locator("#navigation").getByLabel("sabah.com.tr Facebook Sayfası")
+    4) <a class="face" target="_blank" href="https://www.f…>…</a> aka locator(".menuSideBar > .mediaShare > ul > li > .face")
+
+    at CRExecutionContext.evaluateWithArguments (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\chromium\crExecutionContext.js:92:33)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async evaluateExpression (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\javascript.js:241:12)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:941:22
+    at async Frame.retryWithProgressAndTimeouts (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:912:24)
+    at async C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\frames.js:996:29
+    at async ProgressController.run (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\progress.js:91:22)
+    at async FrameDispatcher.click (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\frameDispatcher.js:158:12)
+    at async LongStandingScope._race (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\utils\manualPromise.js:96:14)
+    at async FrameDispatcher._handleCommand (C:\Users\kavci\AppData\Local\Temp\playwright-java-16164864335027407092\package\lib\server\dispatchers\dispatcher.js:96:14)
+}
+Call log:
+- waiting for locator("a[href*='facebook.com']")
+
+	at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:257)
+	at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
+	at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
+	... 40 common frames omitted
