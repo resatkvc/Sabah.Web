@@ -57,6 +57,30 @@ public abstract class BaseTest {
         // Ana sayfaya git
         BrowserManager.navigateToBaseUrl();
         
+        // Sayfa yükleme kontrolü
+        try {
+            logger.info("Sayfa yükleme kontrolü yapılıyor...");
+            
+            // Sayfa başlığını kontrol et
+            String pageTitle = page.title();
+            logger.info("Sayfa başlığı: {}", pageTitle);
+            
+            // URL kontrolü
+            String currentUrl = page.url();
+            logger.info("Mevcut URL: {}", currentUrl);
+            
+            if (!currentUrl.contains("sabah.com.tr")) {
+                logger.error("Yanlış URL'deyiz: {}", currentUrl);
+                throw new RuntimeException("Sayfa doğru URL'de değil: " + currentUrl);
+            }
+            
+            logger.info("Sayfa başarıyla yüklendi");
+            
+        } catch (Exception e) {
+            logger.error("Sayfa yükleme hatası: {}", e.getMessage());
+            throw new RuntimeException("Sayfa yüklenemedi", e);
+        }
+        
         logger.info("Test hazırlıkları tamamlandı");
     }
     

@@ -119,6 +119,7 @@ public class ConfigReader {
     public static final String BROWSER_HEADLESS = "browser.headless";
     public static final String BROWSER_SLOW_MOTION = "browser.slow.motion";
     public static final String BROWSER_TIMEOUT = "browser.timeout";
+    public static final String BROWSER_MAXIMIZE = "browser.maximize";
     public static final String VIEWPORT_WIDTH = "viewport.width";
     public static final String VIEWPORT_HEIGHT = "viewport.height";
     public static final String SCREENSHOT_ON_FAILURE = "screenshot.on.failure";
@@ -129,6 +130,7 @@ public class ConfigReader {
     public static final String WAIT_TIMEOUT_SHORT = "wait.timeout.short";
     public static final String PAGE_LOAD_TIMEOUT = "page.load.timeout";
     public static final String PAGE_LOAD_WAIT_UNTIL = "page.load.wait.until";
+    public static final String PAGE_LOAD_NETWORK_IDLE_TIMEOUT = "page.load.network.idle.timeout";
     public static final String TEST_ENVIRONMENT = "test.environment";
     public static final String PARALLEL_TESTS = "parallel.tests";
     public static final String PARALLEL_THREAD_COUNT = "parallel.thread.count";

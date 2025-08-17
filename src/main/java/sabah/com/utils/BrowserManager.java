@@ -1,12 +1,12 @@
 package sabah.com.utils;
 
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.ViewportSize;
 import com.microsoft.playwright.options.WaitUntilState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sabah.com.config.ConfigReader;
 import io.qameta.allure.Step;
+import java.util.Arrays;
 
 /**
  * Playwright browser yönetimi için utility sınıfı
@@ -47,7 +47,8 @@ public class BrowserManager {
             // Browser launch options
             BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
                 .setHeadless(headless)
-                .setSlowMo(slowMo);
+                .setSlowMo(slowMo)
+                .setArgs(Arrays.asList("--ignore-certificate-errors", "--ignore-ssl-errors"));
             
             // Browser'ı başlat
             switch (browserType.toLowerCase()) {
@@ -70,10 +71,10 @@ public class BrowserManager {
             
             // Browser context oluştur
             Browser.NewContextOptions contextOptions = new Browser.NewContextOptions()
-                .setViewportSize(new ViewportSize(
+                .setViewportSize(
                     ConfigReader.getIntProperty(ConfigReader.VIEWPORT_WIDTH, 1920),
                     ConfigReader.getIntProperty(ConfigReader.VIEWPORT_HEIGHT, 1080)
-                ))
+                )
                 .setLocale("tr-TR")
                 .setTimezoneId("Europe/Istanbul");
             
@@ -101,6 +102,20 @@ public class BrowserManager {
             // Sayfa timeout ayarları
             page.setDefaultTimeout(ConfigReader.getIntProperty(ConfigReader.BROWSER_TIMEOUT, 30000));
             page.setDefaultNavigationTimeout(ConfigReader.getIntProperty(ConfigReader.PAGE_LOAD_TIMEOUT, 60000));
+            
+            // Browser'ı maksimize et (config'den kontrol et)
+            if (ConfigReader.getBooleanProperty(ConfigReader.BROWSER_MAXIMIZE, true)) {
+                try {
+                    // Selenium'daki gibi basit maximization
+                    page.bringToFront();
+                    page.evaluate("window.moveTo(0, 0)");
+                    page.evaluate("window.resizeTo(screen.width, screen.height)");
+                    
+                    logger.info("Browser tam ekran olarak maksimize edildi");
+                } catch (Exception e) {
+                    logger.warn("Browser maksimize edilemedi: {}", e.getMessage());
+                }
+            }
             
             logger.info("Yeni sayfa açıldı ve yapılandırıldı");
             

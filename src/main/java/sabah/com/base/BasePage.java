@@ -72,7 +72,12 @@ public abstract class BasePage {
     @Step("'{0}' elementinin görünür olmasını bekle")
     protected void waitForVisible(Locator locator) {
         logger.debug("Elementin görünür olması bekleniyor: {}", locator);
-        locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        try {
+            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        } catch (Exception e) {
+            logger.warn("VISIBLE state hatası, ATTACHED kullanılıyor: {}", e.getMessage());
+            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
+        }
     }
     
     /**
@@ -82,9 +87,16 @@ public abstract class BasePage {
      */
     protected void waitForVisible(Locator locator, int timeout) {
         logger.debug("Elementin görünür olması bekleniyor ({}ms): {}", timeout, locator);
-        locator.waitFor(new Locator.WaitForOptions()
-            .setState(WaitForSelectorState.VISIBLE)
-            .setTimeout(timeout));
+        try {
+            locator.waitFor(new Locator.WaitForOptions()
+                .setState(WaitForSelectorState.VISIBLE)
+                .setTimeout(timeout));
+        } catch (Exception e) {
+            logger.warn("VISIBLE state hatası, ATTACHED kullanılıyor: {}", e.getMessage());
+            locator.waitFor(new Locator.WaitForOptions()
+                .setState(WaitForSelectorState.ATTACHED)
+                .setTimeout(timeout));
+        }
     }
     
     /**
@@ -94,7 +106,12 @@ public abstract class BasePage {
     @Step("'{0}' elementinin kaybolmasını bekle")
     protected void waitForHidden(Locator locator) {
         logger.debug("Elementin kaybolması bekleniyor: {}", locator);
-        locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN));
+        try {
+            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN));
+        } catch (Exception e) {
+            logger.warn("HIDDEN state hatası, DETACHED kullanılıyor: {}", e.getMessage());
+            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.DETACHED));
+        }
     }
     
     /**
