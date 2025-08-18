@@ -1,11 +1,15 @@
 package sabah.com.base;
 
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sabah.com.config.ConfigReader;
 import io.qameta.allure.Step;
+import java.time.Duration;
 
 /**
  * Tüm page sınıflarının extend edeceği temel sınıf
@@ -15,9 +19,10 @@ public abstract class BasePage {
     
     protected static final Logger logger = LoggerFactory.getLogger(BasePage.class);
     
-    // Playwright nesneleri
-    protected Page page;
-    protected BrowserContext context;
+    // Selenium nesneleri
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    protected Actions actions;
     
     // Bekleme süreleri
     protected final int DEFAULT_TIMEOUT = ConfigReader.getIntProperty(ConfigReader.WAIT_TIMEOUT_DEFAULT);
@@ -26,11 +31,12 @@ public abstract class BasePage {
     
     /**
      * BasePage constructor
-     * @param page Playwright page nesnesi
+     * @param driver WebDriver nesnesi
      */
-    public BasePage(Page page) {
-        this.page = page;
-        this.context = page.context();
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT));
+        this.actions = new Actions(driver);
         logger.debug("BasePage oluşturuldu: {}", this.getClass().getSimpleName());
     }
     
@@ -39,9 +45,9 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      */
     @Step("'{0}' elementine tıkla")
-    protected void click(Locator locator) {
+    protected void click(By locator) {
         logger.debug("Elemente tıklanıyor: {}", locator);
-        locator.click();
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
     
     /**
@@ -51,7 +57,8 @@ public abstract class BasePage {
     @Step("'{0}' selector'üne tıkla")
     protected void click(String selector) {
         logger.debug("Selector'e tıklanıyor: {}", selector);
-        page.click(selector);
+        By locator = By.cssSelector(selector);
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
     
     /**
@@ -60,9 +67,11 @@ public abstract class BasePage {
      * @param text Yazılacak metin
      */
     @Step("'{0}' elementine '{1}' yaz")
-    protected void type(Locator locator, String text) {
+    protected void type(By locator, String text) {
         logger.debug("Elemente metin yazılıyor: {} -> {}", locator, text);
-        locator.fill(text);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.clear();
+        element.sendKeys(text);
     }
     
     /**
@@ -70,33 +79,20 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      */
     @Step("'{0}' elementinin görünür olmasını bekle")
-    protected void waitForVisible(Locator locator) {
+    protected void waitForVisible(By locator) {
         logger.debug("Elementin görünür olması bekleniyor: {}", locator);
-        try {
-            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
-        } catch (Exception e) {
-            logger.warn("VISIBLE state hatası, ATTACHED kullanılıyor: {}", e.getMessage());
-            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
-        }
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
     
     /**
      * Elementin görünür olmasını bekle - özel timeout ile
      * @param locator Element locator'ı
-     * @param timeout Bekleme süresi (ms)
+     * @param timeout Bekleme süresi (saniye)
      */
-    protected void waitForVisible(Locator locator, int timeout) {
-        logger.debug("Elementin görünür olması bekleniyor ({}ms): {}", timeout, locator);
-        try {
-            locator.waitFor(new Locator.WaitForOptions()
-                .setState(WaitForSelectorState.VISIBLE)
-                .setTimeout(timeout));
-        } catch (Exception e) {
-            logger.warn("VISIBLE state hatası, ATTACHED kullanılıyor: {}", e.getMessage());
-            locator.waitFor(new Locator.WaitForOptions()
-                .setState(WaitForSelectorState.ATTACHED)
-                .setTimeout(timeout));
-        }
+    protected void waitForVisible(By locator, int timeout) {
+        logger.debug("Elementin görünür olması bekleniyor ({}s): {}", timeout, locator);
+        WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        customWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
     
     /**
@@ -104,14 +100,9 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      */
     @Step("'{0}' elementinin kaybolmasını bekle")
-    protected void waitForHidden(Locator locator) {
+    protected void waitForHidden(By locator) {
         logger.debug("Elementin kaybolması bekleniyor: {}", locator);
-        try {
-            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.HIDDEN));
-        } catch (Exception e) {
-            logger.warn("HIDDEN state hatası, DETACHED kullanılıyor: {}", e.getMessage());
-            locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.DETACHED));
-        }
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
     
     /**
@@ -119,9 +110,10 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      */
     @Step("'{0}' elementi üzerine hover yap")
-    protected void hover(Locator locator) {
+    protected void hover(By locator) {
         logger.debug("Element üzerine hover yapılıyor: {}", locator);
-        locator.hover();
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        actions.moveToElement(element).perform();
     }
     
     /**
@@ -129,9 +121,9 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      * @return Element görünür mü?
      */
-    protected boolean isVisible(Locator locator) {
+    protected boolean isVisible(By locator) {
         try {
-            return locator.isVisible();
+            return driver.findElement(locator).isDisplayed();
         } catch (Exception e) {
             logger.debug("Element görünürlük kontrolü başarısız: {}", e.getMessage());
             return false;
@@ -143,9 +135,9 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      * @return Element etkin mi?
      */
-    protected boolean isEnabled(Locator locator) {
+    protected boolean isEnabled(By locator) {
         try {
-            return locator.isEnabled();
+            return driver.findElement(locator).isEnabled();
         } catch (Exception e) {
             logger.debug("Element etkinlik kontrolü başarısız: {}", e.getMessage());
             return false;
@@ -157,8 +149,8 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      * @return Element metni
      */
-    protected String getText(Locator locator) {
-        String text = locator.textContent();
+    protected String getText(By locator) {
+        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
         logger.debug("Element metni alındı: {} -> {}", locator, text);
         return text;
     }
@@ -169,8 +161,9 @@ public abstract class BasePage {
      * @param attributeName Attribute adı
      * @return Attribute değeri
      */
-    protected String getAttribute(Locator locator, String attributeName) {
-        String value = locator.getAttribute(attributeName);
+    protected String getAttribute(By locator, String attributeName) {
+        String value = wait.until(ExpectedConditions.visibilityOfElementLocated(locator))
+                .getAttribute(attributeName);
         logger.debug("Element attribute alındı: {} [{}] -> {}", locator, attributeName, value);
         return value;
     }
@@ -181,7 +174,7 @@ public abstract class BasePage {
     @Step("Sayfayı yenile")
     protected void refreshPage() {
         logger.info("Sayfa yenileniyor");
-        page.reload();
+        driver.navigate().refresh();
     }
     
     /**
@@ -191,7 +184,8 @@ public abstract class BasePage {
     @Step("{0} pixel scroll yap")
     protected void scrollByPixels(int pixels) {
         logger.debug("Scroll yapılıyor: {} pixel", pixels);
-        page.evaluate("window.scrollBy(0, " + pixels + ")");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, " + pixels + ")");
     }
     
     /**
@@ -199,9 +193,11 @@ public abstract class BasePage {
      * @param locator Scroll yapılacak element
      */
     @Step("'{0}' elementine scroll yap")
-    protected void scrollToElement(Locator locator) {
+    protected void scrollToElement(By locator) {
         logger.debug("Elemente scroll yapılıyor: {}", locator);
-        locator.scrollIntoViewIfNeeded();
+        WebElement element = driver.findElement(locator);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
     
     /**
@@ -210,7 +206,7 @@ public abstract class BasePage {
      * @param className Kontrol edilecek class adı
      * @return Class var mı?
      */
-    protected boolean hasClass(Locator locator, String className) {
+    protected boolean hasClass(By locator, String className) {
         String classes = getAttribute(locator, "class");
         boolean hasClass = classes != null && classes.contains(className);
         logger.debug("Class kontrolü: {} -> {} ({})", locator, className, hasClass);
@@ -223,9 +219,11 @@ public abstract class BasePage {
      * @param value Seçilecek değer
      */
     @Step("'{0}' dropdown'ından '{1}' seç")
-    protected void selectByValue(Locator locator, String value) {
+    protected void selectByValue(By locator, String value) {
         logger.debug("Dropdown'dan değer seçiliyor: {} -> {}", locator, value);
-        locator.selectOption(value);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        Select select = new Select(element);
+        select.selectByValue(value);
     }
     
     /**
@@ -244,12 +242,12 @@ public abstract class BasePage {
     
     /**
      * Klavye tuşuna basma
-     * @param key Basılacak tuş (örn: "Escape", "Enter")
+     * @param key Basılacak tuş (örn: Keys.ESCAPE, Keys.ENTER)
      */
     @Step("'{0}' tuşuna bas")
-    protected void pressKey(String key) {
+    protected void pressKey(Keys key) {
         logger.debug("Tuşa basılıyor: {}", key);
-        page.keyboard().press(key);
+        actions.sendKeys(key).perform();
     }
     
     /**
@@ -257,8 +255,8 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      * @return Element sayısı
      */
-    protected int getElementCount(Locator locator) {
-        int count = locator.count();
+    protected int getElementCount(By locator) {
+        int count = driver.findElements(locator).size();
         logger.debug("Element sayısı: {} -> {}", locator, count);
         return count;
     }
@@ -270,7 +268,7 @@ public abstract class BasePage {
     @Step("'{0}' adresine git")
     protected void navigateTo(String url) {
         logger.info("'{}' adresine gidiliyor", url);
-        page.navigate(url);
+        driver.navigate().to(url);
     }
     
     /**
@@ -278,7 +276,7 @@ public abstract class BasePage {
      * @return Sayfa başlığı
      */
     protected String getPageTitle() {
-        String title = page.title();
+        String title = driver.getTitle();
         logger.debug("Sayfa başlığı: {}", title);
         return title;
     }
@@ -288,7 +286,7 @@ public abstract class BasePage {
      * @return Mevcut URL
      */
     protected String getCurrentUrl() {
-        String url = page.url();
+        String url = driver.getCurrentUrl();
         logger.debug("Mevcut URL: {}", url);
         return url;
     }
@@ -298,9 +296,9 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      * @return Element var mı?
      */
-    protected boolean elementExists(Locator locator) {
+    protected boolean elementExists(By locator) {
         try {
-            return locator.count() > 0;
+            return driver.findElements(locator).size() > 0;
         } catch (Exception e) {
             logger.debug("Element varlık kontrolü başarısız: {}", e.getMessage());
             return false;
@@ -312,9 +310,10 @@ public abstract class BasePage {
      * @param locator Element locator'ı
      * @return Element tıklanabilir mi?
      */
-    protected boolean isClickable(Locator locator) {
+    protected boolean isClickable(By locator) {
         try {
-            return locator.isVisible() && locator.isEnabled();
+            WebElement element = driver.findElement(locator);
+            return element.isDisplayed() && element.isEnabled();
         } catch (Exception e) {
             logger.debug("Element tıklanabilirlik kontrolü başarısız: {}", e.getMessage());
             return false;

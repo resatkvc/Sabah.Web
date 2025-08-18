@@ -1,6 +1,6 @@
 package sabah.com.base;
 
-import com.microsoft.playwright.Page;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import org.testng.ITestResult;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import io.qameta.allure.Attachment;
 public abstract class BaseTest {
     
     protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
-    protected Page page;
+    protected WebDriver driver;
     
     /**
      * Test suite başlamadan önce bir kez çalışır
@@ -46,13 +46,7 @@ public abstract class BaseTest {
         logger.info("Test metodu başlıyor...");
         
         // Browser'ı başlat
-        page = BrowserManager.initBrowser();
-        
-        // Console ve network loglarını başlat (debug için)
-        if (logger.isDebugEnabled()) {
-            BrowserManager.startConsoleLogging();
-            BrowserManager.startNetworkLogging();
-        }
+        driver = BrowserManager.initBrowser();
         
         // Ana sayfaya git
         BrowserManager.navigateToBaseUrl();
@@ -62,11 +56,11 @@ public abstract class BaseTest {
             logger.info("Sayfa yükleme kontrolü yapılıyor...");
             
             // Sayfa başlığını kontrol et
-            String pageTitle = page.title();
+            String pageTitle = driver.getTitle();
             logger.info("Sayfa başlığı: {}", pageTitle);
             
             // URL kontrolü
-            String currentUrl = page.url();
+            String currentUrl = driver.getCurrentUrl();
             logger.info("Mevcut URL: {}", currentUrl);
             
             if (!currentUrl.contains("sabah.com.tr")) {
@@ -140,8 +134,8 @@ public abstract class BaseTest {
     @Attachment(value = "Hata Ekran Görüntüsü - {0}", type = "image/png")
     private byte[] takeScreenshotOnFailure(String testName) {
         try {
-            if (page != null && !page.isClosed()) {
-                byte[] screenshot = page.screenshot();
+            if (driver != null) {
+                byte[] screenshot = BrowserManager.takeScreenshotAsBytes();
                 logger.info("Hata ekran görüntüsü alındı: {}", testName);
                 
                 // Ayrıca dosyaya da kaydet
@@ -163,8 +157,8 @@ public abstract class BaseTest {
     @Attachment(value = "{0}", type = "image/png")
     protected byte[] takeScreenshot(String screenshotName) {
         try {
-            if (page != null && !page.isClosed()) {
-                byte[] screenshot = page.screenshot();
+            if (driver != null) {
+                byte[] screenshot = BrowserManager.takeScreenshotAsBytes();
                 logger.info("Ekran görüntüsü alındı: {}", screenshotName);
                 return screenshot;
             }
@@ -181,8 +175,8 @@ public abstract class BaseTest {
     @Attachment(value = "Sayfa Kaynağı", type = "text/html")
     protected String attachPageSource() {
         try {
-            if (page != null && !page.isClosed()) {
-                return page.content();
+            if (driver != null) {
+                return driver.getPageSource();
             }
         } catch (Exception e) {
             logger.error("Sayfa kaynağı alma hatası", e);

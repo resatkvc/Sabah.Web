@@ -1,25 +1,37 @@
 package sabah.com.utils;
 
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.WaitUntilState;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sabah.com.config.ConfigReader;
 import io.qameta.allure.Step;
-import java.util.Arrays;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Playwright browser yönetimi için utility sınıfı
+ * Selenium WebDriver yönetimi için utility sınıfı
  * Browser açma, kapatma ve konfigürasyon işlemlerini yönetir
  */
 public class BrowserManager {
     
     private static final Logger logger = LoggerFactory.getLogger(BrowserManager.class);
     
-    private static Playwright playwright;
-    private static Browser browser;
-    private static BrowserContext context;
-    private static Page page;
+    private static WebDriver driver;
+    private static String screenshotDir = "target/screenshots";
     
     /**
      * Private constructor - Singleton pattern
@@ -30,179 +42,172 @@ public class BrowserManager {
     
     /**
      * Browser'ı başlat ve yapılandır
-     * @return Yapılandırılmış Page nesnesi
+     * @return Yapılandırılmış WebDriver nesnesi
      */
     @Step("Browser başlatılıyor")
-    public static Page initBrowser() {
+    public static WebDriver initBrowser() {
         try {
-            // Playwright'ı başlat
-            playwright = Playwright.create();
-            logger.info("Playwright başlatıldı");
-            
             // Browser tipini config'den al
-            String browserType = ConfigReader.getProperty(ConfigReader.BROWSER_TYPE, "chromium");
+            String browserType = ConfigReader.getProperty(ConfigReader.BROWSER_TYPE, "chrome");
             boolean headless = ConfigReader.getBooleanProperty(ConfigReader.BROWSER_HEADLESS, false);
-            int slowMo = ConfigReader.getIntProperty(ConfigReader.BROWSER_SLOW_MOTION, 0);
-            
-            // Browser launch options
-            BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions()
-                .setHeadless(headless)
-                .setSlowMo(slowMo)
-                .setArgs(Arrays.asList("--ignore-certificate-errors", "--ignore-ssl-errors"));
             
             // Browser'ı başlat
             switch (browserType.toLowerCase()) {
-                case "chromium":
-                    browser = playwright.chromium().launch(launchOptions);
-                    logger.info("Chromium browser başlatıldı");
+                case "chrome":
+                    driver = createChromeDriver(headless);
+                    logger.info("Chrome browser başlatıldı");
                     break;
                 case "firefox":
-                    browser = playwright.firefox().launch(launchOptions);
+                    driver = createFirefoxDriver(headless);
                     logger.info("Firefox browser başlatıldı");
                     break;
-                case "webkit":
-                    browser = playwright.webkit().launch(launchOptions);
-                    logger.info("WebKit browser başlatıldı");
+                case "edge":
+                    driver = createEdgeDriver(headless);
+                    logger.info("Edge browser başlatıldı");
+                    break;
+                case "safari":
+                    driver = createSafariDriver(headless);
+                    logger.info("Safari browser başlatıldı");
                     break;
                 default:
-                    browser = playwright.chromium().launch(launchOptions);
-                    logger.warn("Bilinmeyen browser tipi: {}. Chromium kullanılıyor.", browserType);
+                    driver = createChromeDriver(headless);
+                    logger.warn("Bilinmeyen browser tipi: {}. Chrome kullanılıyor.", browserType);
             }
             
-            // Browser context oluştur
-            Browser.NewContextOptions contextOptions = new Browser.NewContextOptions()
-                .setViewportSize(
-                    ConfigReader.getIntProperty(ConfigReader.VIEWPORT_WIDTH, 1920),
-                    ConfigReader.getIntProperty(ConfigReader.VIEWPORT_HEIGHT, 1080)
-                )
-                .setLocale("tr-TR")
-                .setTimezoneId("Europe/Istanbul");
+            // Browser ayarları
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(
+                java.time.Duration.ofSeconds(ConfigReader.getIntProperty(ConfigReader.WAIT_TIMEOUT_DEFAULT, 10))
+            );
+            driver.manage().timeouts().pageLoadTimeout(
+                java.time.Duration.ofSeconds(ConfigReader.getIntProperty(ConfigReader.PAGE_LOAD_TIMEOUT, 30))
+            );
             
-            // Video kayıt özelliği (opsiyonel)
-            if (ConfigReader.getBooleanProperty(ConfigReader.VIDEO_RECORD, false)) {
-                contextOptions.setRecordVideoDir(java.nio.file.Paths.get(ConfigReader.getProperty(ConfigReader.VIDEO_RECORD_DIR, "target/videos")));
-                contextOptions.setRecordVideoSize(new com.microsoft.playwright.options.RecordVideoSize(1280, 720));
-            }
-            
-            context = browser.newContext(contextOptions);
-            logger.info("Browser context oluşturuldu");
-            
-            // Tracing başlat (debug için)
-            if (ConfigReader.getBooleanProperty(ConfigReader.TRACING_ENABLED, false)) {
-                context.tracing().start(new Tracing.StartOptions()
-                    .setScreenshots(true)
-                    .setSnapshots(true)
-                    .setSources(false));
-                logger.info("Tracing başlatıldı");
-            }
-            
-            // Yeni sayfa aç
-            page = context.newPage();
-            
-            // Sayfa timeout ayarları
-            page.setDefaultTimeout(ConfigReader.getIntProperty(ConfigReader.BROWSER_TIMEOUT, 30000));
-            page.setDefaultNavigationTimeout(ConfigReader.getIntProperty(ConfigReader.PAGE_LOAD_TIMEOUT, 60000));
-            
-            // Browser'ı maksimize et (config'den kontrol et)
-            if (ConfigReader.getBooleanProperty(ConfigReader.BROWSER_MAXIMIZE, true)) {
-                try {
-                    // Selenium'daki gibi basit maximization
-                    page.bringToFront();
-                    page.evaluate("window.moveTo(0, 0)");
-                    page.evaluate("window.resizeTo(screen.width, screen.height)");
-                    
-                    logger.info("Browser tam ekran olarak maksimize edildi");
-                } catch (Exception e) {
-                    logger.warn("Browser maksimize edilemedi: {}", e.getMessage());
-                }
-            }
-            
-            logger.info("Yeni sayfa açıldı ve yapılandırıldı");
-            
-            return page;
+            logger.info("Browser başarıyla başlatıldı: {}", browserType);
+            return driver;
             
         } catch (Exception e) {
-            logger.error("Browser başlatma hatası", e);
-            throw new RuntimeException("Browser başlatılamadı: " + e.getMessage(), e);
+            logger.error("Browser başlatma hatası: {}", e.getMessage());
+            throw new RuntimeException("Browser başlatılamadı", e);
         }
     }
     
     /**
-     * Mevcut Page nesnesini getir
-     * @return Aktif Page nesnesi
+     * Chrome driver oluştur
+     * @param headless Headless mod
+     * @return Chrome WebDriver
      */
-    public static Page getPage() {
-        if (page == null) {
-            logger.warn("Page nesnesi null, yeni browser başlatılıyor");
-            return initBrowser();
-        }
-        return page;
-    }
-    
-    /**
-     * Mevcut BrowserContext nesnesini getir
-     * @return Aktif BrowserContext nesnesi
-     */
-    public static BrowserContext getContext() {
-        if (context == null) {
-            logger.warn("Context nesnesi null, yeni browser başlatılıyor");
-            initBrowser();
-        }
-        return context;
-    }
-    
-    /**
-     * Yeni bir sayfa aç
-     * @return Yeni Page nesnesi
-     */
-    @Step("Yeni sayfa açılıyor")
-    public static Page newPage() {
-        if (context == null) {
-            initBrowser();
-        }
-        Page newPage = context.newPage();
-        logger.info("Yeni sayfa açıldı");
-        return newPage;
-    }
-    
-    /**
-     * Belirtilen URL'e git
-     * @param url Gidilecek URL
-     */
-    @Step("'{0}' adresine gidiliyor")
-    public static void navigateTo(String url) {
-        if (page == null) {
-            initBrowser();
+    private static WebDriver createChromeDriver(boolean headless) {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        
+        if (headless) {
+            options.addArguments("--headless");
         }
         
-        Page.NavigateOptions options = new Page.NavigateOptions();
-        String waitUntil = ConfigReader.getProperty(ConfigReader.PAGE_LOAD_WAIT_UNTIL, "domcontentloaded");
+        // Chrome ayarları
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--ignore-ssl-errors");
+        options.addArguments("--start-maximized");
         
-        switch (waitUntil.toLowerCase()) {
-            case "load":
-                options.setWaitUntil(WaitUntilState.LOAD);
-                break;
-            case "domcontentloaded":
-                options.setWaitUntil(WaitUntilState.DOMCONTENTLOADED);
-                break;
-            case "networkidle":
-                options.setWaitUntil(WaitUntilState.NETWORKIDLE);
-                break;
-            default:
-                options.setWaitUntil(WaitUntilState.DOMCONTENTLOADED);
-        }
-        
-        page.navigate(url, options);
-        logger.info("'{}' adresine gidildi", url);
+        return new ChromeDriver(options);
     }
     
     /**
-     * Ana URL'e git (config'den okur)
+     * Firefox driver oluştur
+     * @param headless Headless mod
+     * @return Firefox WebDriver
+     */
+    private static WebDriver createFirefoxDriver(boolean headless) {
+        WebDriverManager.firefoxdriver().setup();
+        FirefoxOptions options = new FirefoxOptions();
+        
+        if (headless) {
+            options.addArguments("--headless");
+        }
+        
+        // Firefox ayarları
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        
+        return new FirefoxDriver(options);
+    }
+    
+    /**
+     * Edge driver oluştur
+     * @param headless Headless mod
+     * @return Edge WebDriver
+     */
+    private static WebDriver createEdgeDriver(boolean headless) {
+        WebDriverManager.edgedriver().setup();
+        EdgeOptions options = new EdgeOptions();
+        
+        if (headless) {
+            options.addArguments("--headless");
+        }
+        
+        // Edge ayarları
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--disable-extensions");
+        
+        return new EdgeDriver(options);
+    }
+    
+    /**
+     * Safari driver oluştur
+     * @param headless Headless mod (Safari'de desteklenmez)
+     * @return Safari WebDriver
+     */
+    private static WebDriver createSafariDriver(boolean headless) {
+        WebDriverManager.safaridriver().setup();
+        SafariOptions options = new SafariOptions();
+        
+        // Safari headless modu desteklemez
+        if (headless) {
+            logger.warn("Safari headless modu desteklemez, normal mod kullanılıyor");
+        }
+        
+        return new SafariDriver(options);
+    }
+    
+    /**
+     * Ana sayfaya git
      */
     @Step("Ana sayfaya gidiliyor")
     public static void navigateToBaseUrl() {
-        String baseUrl = ConfigReader.getProperty(ConfigReader.BASE_URL);
-        navigateTo(baseUrl);
+        try {
+            String baseUrl = ConfigReader.getProperty(ConfigReader.BASE_URL);
+            logger.info("Ana sayfaya gidiliyor: {}", baseUrl);
+            driver.navigate().to(baseUrl);
+            
+            // Sayfa yükleme kontrolü
+            waitForPageLoad();
+            
+        } catch (Exception e) {
+            logger.error("Ana sayfaya gitme hatası: {}", e.getMessage());
+            throw new RuntimeException("Ana sayfaya gidilemedi", e);
+        }
+    }
+    
+    /**
+     * Sayfa yükleme kontrolü
+     */
+    private static void waitForPageLoad() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
+            wait.until(webDriver -> ((JavascriptExecutor) webDriver)
+                .executeScript("return document.readyState").equals("complete"));
+            logger.info("Sayfa tamamen yüklendi");
+        } catch (Exception e) {
+            logger.warn("Sayfa yükleme kontrolü başarısız: {}", e.getMessage());
+        }
     }
     
     /**
@@ -211,158 +216,67 @@ public class BrowserManager {
     @Step("Browser kapatılıyor")
     public static void closeBrowser() {
         try {
-            // Tracing'i kaydet
-            if (context != null && ConfigReader.getBooleanProperty(ConfigReader.TRACING_ENABLED, false)) {
-                String tracePath = "target/trace-" + System.currentTimeMillis() + ".zip";
-                context.tracing().stop(new Tracing.StopOptions()
-                    .setPath(java.nio.file.Paths.get(tracePath)));
-                logger.info("Tracing kaydedildi: {}", tracePath);
+            if (driver != null) {
+                driver.quit();
+                driver = null;
+                logger.info("Browser başarıyla kapatıldı");
             }
-            
-            // Sayfayı kapat
-            if (page != null && !page.isClosed()) {
-                page.close();
-                logger.info("Sayfa kapatıldı");
-            }
-            
-            // Context'i kapat
-            if (context != null) {
-                context.close();
-                logger.info("Browser context kapatıldı");
-            }
-            
-            // Browser'ı kapat
-            if (browser != null) {
-                browser.close();
-                logger.info("Browser kapatıldı");
-            }
-            
-            // Playwright'ı kapat
-            if (playwright != null) {
-                playwright.close();
-                logger.info("Playwright kapatıldı");
-            }
-            
-            // Referansları temizle
-            page = null;
-            context = null;
-            browser = null;
-            playwright = null;
-            
         } catch (Exception e) {
-            logger.error("Browser kapatma hatası", e);
+            logger.error("Browser kapatma hatası: {}", e.getMessage());
         }
     }
     
     /**
      * Ekran görüntüsü al
-     * @param fileName Dosya adı (uzantısız)
-     * @return Kaydedilen dosyanın tam yolu
+     * @param screenshotName Ekran görüntüsü adı
      */
-    @Step("Ekran görüntüsü alınıyor: {0}")
-    public static String takeScreenshot(String fileName) {
-        if (page == null) {
-            logger.error("Page nesnesi null, ekran görüntüsü alınamadı");
-            return null;
-        }
-        
+    public static void takeScreenshot(String screenshotName) {
         try {
-            String screenshotPath = ConfigReader.getProperty(ConfigReader.SCREENSHOT_PATH, "target/screenshots");
-            java.nio.file.Path path = java.nio.file.Paths.get(screenshotPath);
-            
-            // Klasör yoksa oluştur
-            if (!java.nio.file.Files.exists(path)) {
-                java.nio.file.Files.createDirectories(path);
+            // Screenshot dizinini oluştur
+            File directory = new File(screenshotDir);
+            if (!directory.exists()) {
+                directory.mkdirs();
             }
             
             // Dosya adını oluştur
-            String fullFileName = fileName + "_" + System.currentTimeMillis() + ".png";
-            java.nio.file.Path filePath = path.resolve(fullFileName);
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String fileName = screenshotName + "_" + timestamp + ".png";
+            String filePath = screenshotDir + File.separator + fileName;
             
-            // Ekran görüntüsü al
-            page.screenshot(new Page.ScreenshotOptions()
-                .setPath(filePath)
-                .setFullPage(true));
+            // Screenshot al
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File screenshot = ts.getScreenshotAs(OutputType.FILE);
+            
+            // Dosyaya kaydet
+            Files.copy(screenshot.toPath(), Paths.get(filePath));
             
             logger.info("Ekran görüntüsü kaydedildi: {}", filePath);
-            return filePath.toString();
             
+        } catch (IOException e) {
+            logger.error("Ekran görüntüsü alma hatası: {}", e.getMessage());
+        }
+    }
+    
+    /**
+     * Ekran görüntüsü al ve byte array olarak döndür
+     * @return Ekran görüntüsü byte array
+     */
+    public static byte[] takeScreenshotAsBytes() {
+        try {
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            return ts.getScreenshotAs(OutputType.BYTES);
         } catch (Exception e) {
-            logger.error("Ekran görüntüsü alma hatası", e);
-            return null;
+            logger.error("Ekran görüntüsü alma hatası: {}", e.getMessage());
+            return new byte[0];
         }
     }
     
     /**
-     * Sayfa başlığını al
-     * @return Sayfa başlığı
+     * Mevcut WebDriver'ı al
+     * @return WebDriver nesnesi
      */
-    public static String getPageTitle() {
-        if (page == null) {
-            return null;
-        }
-        return page.title();
-    }
-    
-    /**
-     * Mevcut URL'i al
-     * @return Mevcut URL
-     */
-    public static String getCurrentUrl() {
-        if (page == null) {
-            return null;
-        }
-        return page.url();
-    }
-    
-    /**
-     * Sayfayı yenile
-     */
-    @Step("Sayfa yenileniyor")
-    public static void refreshPage() {
-        if (page != null) {
-            page.reload();
-            logger.info("Sayfa yenilendi");
-        }
-    }
-    
-    /**
-     * Geri git
-     */
-    @Step("Geri gidiliyor")
-    public static void goBack() {
-        if (page != null) {
-            page.goBack();
-            logger.info("Geri gidildi");
-        }
-    }
-    
-    /**
-     * İleri git
-     */
-    @Step("İleri gidiliyor")
-    public static void goForward() {
-        if (page != null) {
-            page.goForward();
-            logger.info("İleri gidildi");
-        }
-    }
-    
-    /**
-     * Yeni sekme aç
-     * @param url Açılacak URL
-     * @return Yeni sekmenin Page nesnesi
-     */
-    @Step("Yeni sekmede '{0}' açılıyor")
-    public static Page openNewTab(String url) {
-        if (context == null) {
-            initBrowser();
-        }
-        
-        Page newTab = context.newPage();
-        newTab.navigate(url);
-        logger.info("Yeni sekmede '{}' açıldı", url);
-        return newTab;
+    public static WebDriver getDriver() {
+        return driver;
     }
     
     /**
@@ -370,35 +284,24 @@ public class BrowserManager {
      * @return Browser açık mı?
      */
     public static boolean isBrowserOpen() {
-        return browser != null && browser.isConnected();
+        try {
+            if (driver != null) {
+                driver.getCurrentUrl();
+                return true;
+            }
+        } catch (Exception e) {
+            logger.debug("Browser kontrol hatası: {}", e.getMessage());
+        }
+        return false;
     }
     
     /**
-     * Console loglarını dinlemeye başla
+     * Browser'ı yeniden başlat
+     * @return Yeni WebDriver nesnesi
      */
-    public static void startConsoleLogging() {
-        if (page != null) {
-            page.onConsoleMessage(msg -> {
-                logger.debug("Browser Console [{}]: {}", msg.type(), msg.text());
-            });
-            logger.info("Console log dinleme başlatıldı");
-        }
-    }
-    
-    /**
-     * Network isteklerini dinlemeye başla
-     */
-    public static void startNetworkLogging() {
-        if (page != null) {
-            page.onRequest(request -> {
-                logger.debug("Request: {} {}", request.method(), request.url());
-            });
-            
-            page.onResponse(response -> {
-                logger.debug("Response: {} {} - {}", response.status(), response.url(), response.statusText());
-            });
-            
-            logger.info("Network log dinleme başlatıldı");
-        }
+    public static WebDriver restartBrowser() {
+        logger.info("Browser yeniden başlatılıyor...");
+        closeBrowser();
+        return initBrowser();
     }
 }

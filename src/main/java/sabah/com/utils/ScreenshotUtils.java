@@ -1,27 +1,26 @@
 package sabah.com.utils;
 
-import com.microsoft.playwright.*;
+import org.openqa.selenium.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sabah.com.config.ConfigReader;
-
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Ekran görüntüsü alma işlemleri için yardımcı sınıf
- * Playwright'ın screenshot özelliklerini kolaylaştırır
+ * Selenium WebDriver ile ekran görüntüsü alma işlemlerini kolaylaştırır
  */
 public class ScreenshotUtils {
     
     private static final Logger logger = LoggerFactory.getLogger(ScreenshotUtils.class);
     
-    // Varsayılan ayarlar
-    private static final String DEFAULT_SCREENSHOT_PATH = ConfigReader.getProperty(ConfigReader.SCREENSHOT_PATH, "target/screenshots");
-    private static final String TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss";
+    // Screenshot dizini
+    private static final String SCREENSHOT_DIR = ConfigReader.getProperty(ConfigReader.SCREENSHOT_PATH, "target/screenshots");
     
     /**
      * Private constructor - Utility sınıfı
@@ -31,239 +30,281 @@ public class ScreenshotUtils {
     }
     
     /**
-     * Tam sayfa ekran görüntüsü al
-     * @param page Playwright page nesnesi
+     * Ekran görüntüsü al ve dosyaya kaydet
+     * @param driver WebDriver nesnesi
      * @param fileName Dosya adı (uzantısız)
      * @return Kaydedilen dosyanın tam yolu
      */
-    public static String takeFullPageScreenshot(Page page, String fileName) {
-        return takeScreenshot(page, fileName, true);
-    }
-    
-    /**
-     * Görünür alan ekran görüntüsü al
-     * @param page Playwright page nesnesi
-     * @param fileName Dosya adı (uzantısız)
-     * @return Kaydedilen dosyanın tam yolu
-     */
-    public static String takeVisibleScreenshot(Page page, String fileName) {
-        return takeScreenshot(page, fileName, false);
-    }
-    
-    /**
-     * Element ekran görüntüsü al
-     * @param page Playwright page nesnesi
-     * @param fileName Dosya adı (uzantısız)
-     * @param selector Element selector'ı
-     * @return Kaydedilen dosyanın tam yolu
-     */
-    public static String takeElementScreenshot(Page page, String fileName, String selector) {
+    public static String takeScreenshot(WebDriver driver, String fileName) {
         try {
-            // Klasörü oluştur
-            Path screenshotDir = createScreenshotDirectory();
+            // Screenshot dizinini oluştur
+            createScreenshotDirectory();
             
             // Dosya adını oluştur
-            String fullFileName = generateFileName(fileName);
-            Path filePath = screenshotDir.resolve(fullFileName);
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String fullFileName = fileName + "_" + timestamp + ".png";
+            String filePath = SCREENSHOT_DIR + File.separator + fullFileName;
             
-            // Element ekran görüntüsü al
-            Locator element = page.locator(selector);
-            element.screenshot(new Locator.ScreenshotOptions().setPath(filePath));
+            // Screenshot al
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File screenshot = ts.getScreenshotAs(OutputType.FILE);
             
-            logger.info("Element ekran görüntüsü kaydedildi: {}", filePath);
-            return filePath.toString();
-            
-        } catch (Exception e) {
-            logger.error("Element ekran görüntüsü alma hatası: {}", e.getMessage());
-            return null;
-        }
-    }
-    
-    /**
-     * Ekran görüntüsü al - genel metod
-     * @param page Playwright page nesnesi
-     * @param fileName Dosya adı (uzantısız)
-     * @param fullPage Tam sayfa mı?
-     * @return Kaydedilen dosyanın tam yolu
-     */
-    public static String takeScreenshot(Page page, String fileName, boolean fullPage) {
-        try {
-            // Klasörü oluştur
-            Path screenshotDir = createScreenshotDirectory();
-            
-            // Dosya adını oluştur
-            String fullFileName = generateFileName(fileName);
-            Path filePath = screenshotDir.resolve(fullFileName);
-            
-            // Ekran görüntüsü al
-            page.screenshot(new Page.ScreenshotOptions()
-                .setPath(filePath)
-                .setFullPage(fullPage));
+            // Dosyaya kaydet
+            Files.copy(screenshot.toPath(), Paths.get(filePath));
             
             logger.info("Ekran görüntüsü kaydedildi: {}", filePath);
-            return filePath.toString();
+            return filePath;
             
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.error("Ekran görüntüsü alma hatası: {}", e.getMessage());
             return null;
         }
     }
     
     /**
-     * Hata durumu için ekran görüntüsü al
-     * @param page Playwright page nesnesi
-     * @param testName Test adı
-     * @return Kaydedilen dosyanın tam yolu
-     */
-    public static String takeErrorScreenshot(Page page, String testName) {
-        return takeScreenshot(page, "ERROR_" + testName, true);
-    }
-    
-    /**
-     * Başarı durumu için ekran görüntüsü al
-     * @param page Playwright page nesnesi
-     * @param testName Test adı
-     * @return Kaydedilen dosyanın tam yolu
-     */
-    public static String takeSuccessScreenshot(Page page, String testName) {
-        return takeScreenshot(page, "SUCCESS_" + testName, false);
-    }
-    
-    /**
-     * Belirli bir alanın ekran görüntüsünü al
-     * @param page Playwright page nesnesi
-     * @param fileName Dosya adı (uzantısız)
-     * @param x X koordinatı
-     * @param y Y koordinatı
-     * @param width Genişlik
-     * @param height Yükseklik
-     * @return Kaydedilen dosyanın tam yolu
-     */
-    public static String takeAreaScreenshot(Page page, String fileName, int x, int y, int width, int height) {
-        try {
-            // Klasörü oluştur
-            Path screenshotDir = createScreenshotDirectory();
-            
-            // Dosya adını oluştur
-            String fullFileName = generateFileName(fileName);
-            Path filePath = screenshotDir.resolve(fullFileName);
-            
-            // Belirli alanın ekran görüntüsünü al
-            page.screenshot(new Page.ScreenshotOptions()
-                .setPath(filePath)
-                .setClip(x, y, width, height));
-            
-            logger.info("Alan ekran görüntüsü kaydedildi: {}", filePath);
-            return filePath.toString();
-            
-        } catch (Exception e) {
-            logger.error("Alan ekran görüntüsü alma hatası: {}", e.getMessage());
-            return null;
-        }
-    }
-    
-    /**
-     * Ekran görüntüsü klasörünü oluştur
-     * @return Oluşturulan klasör yolu
-     */
-    private static Path createScreenshotDirectory() throws Exception {
-        Path screenshotDir = Paths.get(DEFAULT_SCREENSHOT_PATH);
-        
-        if (!Files.exists(screenshotDir)) {
-            Files.createDirectories(screenshotDir);
-            logger.debug("Ekran görüntüsü klasörü oluşturuldu: {}", screenshotDir);
-        }
-        
-        return screenshotDir;
-    }
-    
-    /**
-     * Dosya adını oluştur
-     * @param baseName Temel dosya adı
-     * @return Tam dosya adı
-     */
-    private static String generateFileName(String baseName) {
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(TIMESTAMP_FORMAT));
-        return baseName + "_" + timestamp + ".png";
-    }
-    
-    /**
-     * Ekran görüntüsü byte array olarak al
-     * @param page Playwright page nesnesi
-     * @param fullPage Tam sayfa mı?
+     * Ekran görüntüsü al ve byte array olarak döndür
+     * @param driver WebDriver nesnesi
      * @return Ekran görüntüsü byte array
      */
-    public static byte[] takeScreenshotAsBytes(Page page, boolean fullPage) {
+    public static byte[] takeScreenshotAsBytes(WebDriver driver) {
         try {
-            byte[] screenshot = page.screenshot(new Page.ScreenshotOptions()
-                .setFullPage(fullPage));
-            
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
             logger.debug("Ekran görüntüsü byte array olarak alındı");
             return screenshot;
-            
         } catch (Exception e) {
-            logger.error("Ekran görüntüsü byte array alma hatası: {}", e.getMessage());
+            logger.error("Ekran görüntüsü alma hatası: {}", e.getMessage());
             return new byte[0];
         }
     }
     
     /**
-     * Ekran görüntüsü klasörünü temizle
-     * @param daysToKeep Saklanacak gün sayısı
+     * Belirli bir elementin ekran görüntüsünü al
+     * @param driver WebDriver nesnesi
+     * @param element Screenshot alınacak element
+     * @param fileName Dosya adı (uzantısız)
+     * @return Kaydedilen dosyanın tam yolu
      */
-    public static void cleanScreenshotDirectory(int daysToKeep) {
+    public static String takeElementScreenshot(WebDriver driver, WebElement element, String fileName) {
         try {
-            Path screenshotDir = Paths.get(DEFAULT_SCREENSHOT_PATH);
+            // Screenshot dizinini oluştur
+            createScreenshotDirectory();
             
-            if (Files.exists(screenshotDir)) {
-                LocalDateTime cutoffDate = LocalDateTime.now().minusDays(daysToKeep);
-                
-                Files.list(screenshotDir)
-                    .filter(path -> path.toString().endsWith(".png"))
-                    .filter(path -> {
-                        try {
-                            return Files.getLastModifiedTime(path).toInstant()
-                                .isBefore(cutoffDate.toInstant(java.time.ZoneOffset.UTC));
-                        } catch (Exception e) {
-                            return false;
-                        }
-                    })
-                    .forEach(path -> {
-                        try {
-                            Files.delete(path);
-                            logger.debug("Eski ekran görüntüsü silindi: {}", path);
-                        } catch (Exception e) {
-                            logger.warn("Ekran görüntüsü silinemedi: {} - {}", path, e.getMessage());
-                        }
-                    });
-                
-                logger.info("Ekran görüntüsü klasörü temizlendi");
-            }
+            // Dosya adını oluştur
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String fullFileName = fileName + "_" + timestamp + ".png";
+            String filePath = SCREENSHOT_DIR + File.separator + fullFileName;
             
-        } catch (Exception e) {
-            logger.error("Ekran görüntüsü klasörü temizleme hatası: {}", e.getMessage());
+            // Element screenshot al
+            File screenshot = element.getScreenshotAs(OutputType.FILE);
+            
+            // Dosyaya kaydet
+            Files.copy(screenshot.toPath(), Paths.get(filePath));
+            
+            logger.info("Element ekran görüntüsü kaydedildi: {}", filePath);
+            return filePath;
+            
+        } catch (IOException e) {
+            logger.error("Element ekran görüntüsü alma hatası: {}", e.getMessage());
+            return null;
         }
     }
     
     /**
-     * Ekran görüntüsü sayısını al
-     * @return Ekran görüntüsü sayısı
+     * Belirli bir elementin ekran görüntüsünü al ve byte array olarak döndür
+     * @param driver WebDriver nesnesi
+     * @param element Screenshot alınacak element
+     * @return Ekran görüntüsü byte array
      */
-    public static long getScreenshotCount() {
+    public static byte[] takeElementScreenshotAsBytes(WebDriver driver, WebElement element) {
         try {
-            Path screenshotDir = Paths.get(DEFAULT_SCREENSHOT_PATH);
+            byte[] screenshot = element.getScreenshotAs(OutputType.BYTES);
+            logger.debug("Element ekran görüntüsü byte array olarak alındı");
+            return screenshot;
+        } catch (Exception e) {
+            logger.error("Element ekran görüntüsü alma hatası: {}", e.getMessage());
+            return new byte[0];
+        }
+    }
+    
+    /**
+     * Tam sayfa ekran görüntüsü al
+     * @param driver WebDriver nesnesi
+     * @param fileName Dosya adı (uzantısız)
+     * @return Kaydedilen dosyanın tam yolu
+     */
+    public static String takeFullPageScreenshot(WebDriver driver, String fileName) {
+        try {
+            // Screenshot dizinini oluştur
+            createScreenshotDirectory();
             
-            if (Files.exists(screenshotDir)) {
-                return Files.list(screenshotDir)
-                    .filter(path -> path.toString().endsWith(".png"))
-                    .count();
+            // Dosya adını oluştur
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String fullFileName = fileName + "_" + timestamp + ".png";
+            String filePath = SCREENSHOT_DIR + File.separator + fullFileName;
+            
+            // JavaScript ile tam sayfa screenshot al
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            
+            // Sayfa yüksekliğini al
+            Long pageHeight = (Long) js.executeScript("return document.body.scrollHeight");
+            Long viewportHeight = (Long) js.executeScript("return window.innerHeight");
+            
+            // Tam sayfa screenshot için scroll ve birleştirme
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File screenshot = ts.getScreenshotAs(OutputType.FILE);
+            
+            // Dosyaya kaydet
+            Files.copy(screenshot.toPath(), Paths.get(filePath));
+            
+            logger.info("Tam sayfa ekran görüntüsü kaydedildi: {}", filePath);
+            return filePath;
+            
+        } catch (IOException e) {
+            logger.error("Tam sayfa ekran görüntüsü alma hatası: {}", e.getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Hata durumunda otomatik ekran görüntüsü al
+     * @param driver WebDriver nesnesi
+     * @param testName Test adı
+     * @return Kaydedilen dosyanın tam yolu
+     */
+    public static String takeErrorScreenshot(WebDriver driver, String testName) {
+        String fileName = "ERROR_" + testName.replaceAll("[^a-zA-Z0-9]", "_");
+        return takeScreenshot(driver, fileName);
+    }
+    
+    /**
+     * Başarı durumunda otomatik ekran görüntüsü al
+     * @param driver WebDriver nesnesi
+     * @param testName Test adı
+     * @return Kaydedilen dosyanın tam yolu
+     */
+    public static String takeSuccessScreenshot(WebDriver driver, String testName) {
+        String fileName = "SUCCESS_" + testName.replaceAll("[^a-zA-Z0-9]", "_");
+        return takeScreenshot(driver, fileName);
+    }
+    
+    /**
+     * Screenshot dizinini oluştur
+     */
+    private static void createScreenshotDirectory() {
+        try {
+            File directory = new File(SCREENSHOT_DIR);
+            if (!directory.exists()) {
+                boolean created = directory.mkdirs();
+                if (created) {
+                    logger.debug("Screenshot dizini oluşturuldu: {}", SCREENSHOT_DIR);
+                } else {
+                    logger.warn("Screenshot dizini oluşturulamadı: {}", SCREENSHOT_DIR);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Screenshot dizini oluşturma hatası: {}", e.getMessage());
+        }
+    }
+    
+    /**
+     * Screenshot dizinini temizle
+     * @param olderThanDays Belirtilen günden eski dosyaları sil
+     */
+    public static void cleanScreenshotDirectory(int olderThanDays) {
+        try {
+            File directory = new File(SCREENSHOT_DIR);
+            if (!directory.exists()) {
+                return;
             }
             
-            return 0;
+            File[] files = directory.listFiles();
+            if (files == null) {
+                return;
+            }
+            
+            long cutoffTime = System.currentTimeMillis() - (olderThanDays * 24 * 60 * 60 * 1000L);
+            int deletedCount = 0;
+            
+            for (File file : files) {
+                if (file.isFile() && file.lastModified() < cutoffTime) {
+                    if (file.delete()) {
+                        deletedCount++;
+                        logger.debug("Eski screenshot dosyası silindi: {}", file.getName());
+                    }
+                }
+            }
+            
+            logger.info("{} eski screenshot dosyası silindi", deletedCount);
             
         } catch (Exception e) {
-            logger.error("Ekran görüntüsü sayısı alma hatası: {}", e.getMessage());
+            logger.error("Screenshot dizini temizleme hatası: {}", e.getMessage());
+        }
+    }
+    
+    /**
+     * Screenshot dizinindeki dosya sayısını al
+     * @return Dosya sayısı
+     */
+    public static int getScreenshotCount() {
+        try {
+            File directory = new File(SCREENSHOT_DIR);
+            if (!directory.exists()) {
+                return 0;
+            }
+            
+            File[] files = directory.listFiles();
+            return files != null ? files.length : 0;
+            
+        } catch (Exception e) {
+            logger.error("Screenshot sayısı alma hatası: {}", e.getMessage());
             return 0;
+        }
+    }
+    
+    /**
+     * Screenshot dizininin boyutunu al
+     * @return Dizin boyutu (byte)
+     */
+    public static long getScreenshotDirectorySize() {
+        try {
+            File directory = new File(SCREENSHOT_DIR);
+            if (!directory.exists()) {
+                return 0;
+            }
+            
+            long size = 0;
+            File[] files = directory.listFiles();
+            
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        size += file.length();
+                    }
+                }
+            }
+            
+            return size;
+            
+        } catch (Exception e) {
+            logger.error("Screenshot dizin boyutu alma hatası: {}", e.getMessage());
+            return 0;
+        }
+    }
+    
+    /**
+     * Screenshot dizinini sıkıştır (opsiyonel)
+     * @param zipFileName Sıkıştırılmış dosya adı
+     * @return Sıkıştırılmış dosyanın yolu
+     */
+    public static String compressScreenshotDirectory(String zipFileName) {
+        try {
+            // Bu metod implement edilebilir (Apache Commons Compress kullanarak)
+            logger.info("Screenshot dizini sıkıştırma özelliği henüz implement edilmedi");
+            return null;
+        } catch (Exception e) {
+            logger.error("Screenshot dizini sıkıştırma hatası: {}", e.getMessage());
+            return null;
         }
     }
 }
