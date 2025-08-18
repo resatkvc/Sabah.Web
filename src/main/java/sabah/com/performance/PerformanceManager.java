@@ -3,7 +3,11 @@ package sabah.com.performance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import sabah.com.data.TestDataManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +24,7 @@ public class PerformanceManager {
     
     private static final Logger logger = LoggerFactory.getLogger(PerformanceManager.class);
     private static final int LOAD_TIME_THRESHOLD = Integer.parseInt(TestDataManager.getTestData("performance.load.time", "10"));
-    private static final int TIMEOUT_THRESHOLD = Integer.parseInt(TestDataManager.getTestData("performance.timeout", "30"));
-    private static final int RETRY_COUNT = Integer.parseInt(TestDataManager.getTestData("performance.retry.count", "3"));
+    // İleride kullanılmak üzere aşağıdaki konfigürasyonlar kaldırıldı (kullanılmıyordu)
     
     /**
      * Sayfa yükleme süresini ölç
@@ -77,10 +80,10 @@ public class PerformanceManager {
         try {
             // Navigation Timing API kullanarak detaylı metrikler
             String script = "return window.performance.timing;";
-            Object timing = driver.executeScript(script);
+            ((JavascriptExecutor) driver).executeScript(script);
             
             // Basit metrikler
-            String readyState = (String) driver.executeScript("return document.readyState;");
+            String readyState = (String) ((JavascriptExecutor) driver).executeScript("return document.readyState;");
             String title = driver.getTitle();
             
             return String.format("readyState=%s, title=%s", readyState, title);
@@ -162,8 +165,14 @@ public class PerformanceManager {
      */
     private static WebDriver createThreadDriver() {
         try {
-            // Basit WebDriver oluştur (gerçek implementasyonda BrowserManager kullanılabilir)
-            return null; // Bu kısım gerçek implementasyonda doldurulacak
+            // Her thread için lightweight headless Chrome oluştur
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-gpu");
+            return new ChromeDriver(options);
         } catch (Exception e) {
             logger.error("Thread WebDriver oluşturma hatası: {}", e.getMessage());
             return null;
@@ -193,15 +202,9 @@ public class PerformanceManager {
                 .average()
                 .orElse(0.0);
         
-        double maxResponseTime = results.stream()
-                .mapToLong(PerformanceResult::getPageLoadTime)
-                .max()
-                .orElse(0);
-        
-        double minResponseTime = results.stream()
-                .mapToLong(PerformanceResult::getPageLoadTime)
-                .min()
-                .orElse(0);
+        // Maksimum ve minimum süreler istenirse raporlamada kullanılabilir
+        results.stream().mapToLong(PerformanceResult::getPageLoadTime).max().orElse(0);
+        results.stream().mapToLong(PerformanceResult::getPageLoadTime).min().orElse(0);
         
         double successRate = (double) successfulRequests / totalRequests;
         boolean isPassed = successRate >= 0.95 && avgResponseTime <= LOAD_TIME_THRESHOLD * 1000;
@@ -215,8 +218,8 @@ public class PerformanceManager {
                 isPassed
         );
         
-        logger.info("Yük testi tamamlandı: Başarı oranı={:.2f}%, Ortalama süre={:.2f}ms", 
-                successRate * 100, avgResponseTime);
+        logger.info("Yük testi tamamlandı: Başarı oranı={}%, Ortalama süre={}ms", 
+                String.format("%.2f", successRate * 100), String.format("%.2f", avgResponseTime));
         
         return loadTestResult;
     }
