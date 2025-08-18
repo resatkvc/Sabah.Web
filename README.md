@@ -12,6 +12,12 @@ Bu proje, Sabah.com web sitesinin otomatik test senaryolarını içeren kapsaml�
 - **WebDriverManager 5.7.0** - Driver yönetimi
 - **TestNG** - Test framework'ü
 - **Allure** - Test raporlama
+- **SLF4J & Logback** - Logging framework'leri
+- **Apache Commons Configuration** - Konfigürasyon yönetimi
+- **Apache Commons IO** - Dosya işlemleri
+- **MySQL Connector** - Veritabanı bağlantısı
+- **Jackson** - JSON işleme
+- **Apache POI** - Excel dosya işleme
 - **SLF4J & Logback** - Loglama
 - **Apache Commons Configuration** - Konfigürasyon yönetimi
 
@@ -85,9 +91,21 @@ mvn test -Dgroups=smoke
 mvn test -Dgroups=regression
 ```
 
+**Performans Testleri:**
+```bash
+mvn test -Dgroups=performance
+```
+
+**Yük Testleri:**
+```bash
+mvn test -Dgroups=load
+```
+
 ### Belirli Test Sınıfını Çalıştırma
 ```bash
 mvn test -Dtest=HomePageTest
+mvn test -Dtest=NewsPageTest
+mvn test -Dtest=PerformanceTest
 ```
 
 ### TestNG XML Dosyası ile Çalıştırma
@@ -154,10 +172,36 @@ mvn test -DthreadCount=2
 - ✅ Borsa verileri testi
 - ✅ Hava durumu testi
 
+### **Haber Sayfası Testleri (NewsPageTest)**
+- ✅ Haber sayfası yükleme kontrolü
+- ✅ Haber başlıkları kontrolü
+- ✅ İlk habere tıklama ve detay sayfası
+- ✅ Haber içeriği, tarih, yazar, kategori bilgileri
+- ✅ Sosyal medya paylaşım butonları
+- ✅ İlgili haberler bölümü
+- ✅ Sayfalama işlemleri
+- ✅ Belirli sayfa numarasına gitme
+- ✅ Yorum yazma alanı
+- ✅ Farklı anahtar kelimelerle arama
+
+### **Performans Testleri (PerformanceTest)**
+- ✅ Ana sayfa yükleme performansı
+- ✅ Kategori sayfaları performansı
+- ✅ Arama sayfası performansı
+- ✅ Haber detay sayfası performansı
+- ✅ Yük testi (concurrent users)
+- ✅ Performans raporu oluşturma
+- ✅ JavaScript metrikleri
+- ✅ Responsive performans (farklı ekran boyutları)
+
 ### Test Grupları
 
 - **Smoke Tests:** Kritik işlevsellik testleri
 - **Regression Tests:** Kapsamlı regresyon testleri
+- **Performance Tests:** Performans testleri
+- **Load Tests:** Yük testleri
+- **Reporting Tests:** Raporlama testleri
+- **Responsive Tests:** Responsive tasarım testleri
 
 ## 🐛 Hata Ayıklama
 
