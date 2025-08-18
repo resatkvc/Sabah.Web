@@ -1,6 +1,7 @@
 package sabah.com.tests;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import sabah.com.base.BaseTest;
@@ -110,8 +111,8 @@ public class HomePageTest extends BaseTest {
         Assert.assertTrue(homePage.getHeader().isHamburgerMenuOpen(),
             "Hamburger menü açılamadı!");
         
-        // ESC tuşuna bas
-        homePage.pressKey(org.openqa.selenium.Keys.ESCAPE);
+        // ESC tuşuna bas - HomePage üzerinden
+        homePage.pressKey(Keys.ESCAPE);
         
         // Kısa bekleme
         homePage.wait(1000);
@@ -125,7 +126,7 @@ public class HomePageTest extends BaseTest {
      * Arama fonksiyonu testi
      */
     @Test(priority = 5, groups = {"smoke", "regression"})
-    @Severity(SeverityLevel.HIGH)
+    @Severity(SeverityLevel.NORMAL)
     @Story("Arama Fonksiyonu")
     @Description("Arama butonunun çalıştığını ve arama yapabildiğini kontrol et")
     public void testSearchFunctionality() {
@@ -197,7 +198,7 @@ public class HomePageTest extends BaseTest {
      * Sosyal medya linkleri testi
      */
     @Test(priority = 7, groups = {"regression"})
-    @Severity(SeverityLevel.LOW)
+    @Severity(SeverityLevel.MINOR)
     @Story("Sosyal Medya Linkleri")
     @Description("Sosyal medya ikonlarının mevcut olduğunu kontrol et")
     public void testSocialMediaLinks() {
@@ -248,7 +249,7 @@ public class HomePageTest extends BaseTest {
      * Sayfa scroll testi
      */
     @Test(priority = 8, groups = {"regression"})
-    @Severity(SeverityLevel.LOW)
+    @Severity(SeverityLevel.MINOR)
     @Story("Sayfa Scroll İşlemleri")
     @Description("Sayfanın aşağı ve yukarı scroll edilebildiğini kontrol et")
     public void testPageScrolling() {
@@ -272,7 +273,7 @@ public class HomePageTest extends BaseTest {
      * Sayfa yenileme testi
      */
     @Test(priority = 9, groups = {"regression"})
-    @Severity(SeverityLevel.LOW)
+    @Severity(SeverityLevel.MINOR)
     @Story("Sayfa Yenileme")
     @Description("Sayfanın yenilenebildiğini kontrol et")
     public void testPageRefresh() {
@@ -294,7 +295,7 @@ public class HomePageTest extends BaseTest {
      * Sayfa element sayıları testi
      */
     @Test(priority = 10, groups = {"regression"})
-    @Severity(SeverityLevel.LOW)
+    @Severity(SeverityLevel.MINOR)
     @Story("Sayfa Element Sayıları")
     @Description("Sayfadaki link ve resim sayılarını kontrol et")
     public void testPageElementCounts() {
@@ -323,7 +324,7 @@ public class HomePageTest extends BaseTest {
      * Borsa verileri testi
      */
     @Test(priority = 11, groups = {"regression"})
-    @Severity(SeverityLevel.LOW)
+    @Severity(SeverityLevel.MINOR)
     @Story("Borsa Verileri")
     @Description("Borsa verilerinin görüntülenebildiğini kontrol et")
     public void testBorsaData() {
@@ -358,7 +359,7 @@ public class HomePageTest extends BaseTest {
      * Hava durumu testi
      */
     @Test(priority = 12, groups = {"regression"})
-    @Severity(SeverityLevel.LOW)
+    @Severity(SeverityLevel.MINOR)
     @Story("Hava Durumu Bilgisi")
     @Description("Hava durumu bilgisinin görüntülenebildiğini kontrol et")
     public void testWeatherInfo() {

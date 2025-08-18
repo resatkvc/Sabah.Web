@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import sabah.com.base.BasePage;
 import sabah.com.components.common.HeaderComponent;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 
 /**
  * Sabah.com Ana Sayfa Page Object
@@ -307,5 +308,29 @@ public class HomePage extends BasePage {
         } catch (Exception e) {
             logger.error("Sayfa yenileme hatası: {}", e.getMessage());
         }
+    }
+    
+    /**
+     * Mevcut URL'i al
+     * @return Mevcut URL
+     */
+    public String getCurrentUrl() {
+        return super.getCurrentUrl();
+    }
+    
+    /**
+     * Klavye tuşuna basma
+     * @param key Basılacak tuş
+     */
+    public void pressKey(Keys key) {
+        super.pressKey(key);
+    }
+    
+    /**
+     * Belirli bir süre bekle
+     * @param milliseconds Bekleme süresi (milisaniye)
+     */
+    public void wait(int milliseconds) {
+        super.wait(milliseconds);
     }
 }

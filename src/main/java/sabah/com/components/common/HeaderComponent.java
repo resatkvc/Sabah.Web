@@ -481,4 +481,12 @@ public class HeaderComponent extends BasePage {
             logger.error("Hamburger menü kategori seçme hatası: {}", e.getMessage());
         }
     }
+    
+    /**
+     * Klavye tuşuna basma
+     * @param key Basılacak tuş
+     */
+    public void pressKey(Keys key) {
+        super.pressKey(key);
+    }
 }
