@@ -8,7 +8,7 @@
     
     <!-- Parametreler -->
     <parameter name="browser" value="chrome"/>
-    <parameter name="headless" value="false"/>
+    <parameter name="headless" value="true"/>
     
     <!-- Test Grupları -->
     <test name="Sabah.com Smoke Testleri">

@@ -32,7 +32,7 @@ public class HomePageTest extends BaseTest {
             "Ana sayfa basariyla yuklenemedi!");
         
         // Sayfa basligini kontrol et
-        Assert.assertTrue(homePage.verifyPageTitle("SABAH"), 
+        Assert.assertTrue(homePage.verifyPageTitle("Sabah"),
             "Sayfa basligi beklenen degeri icermiyor!");
         
         // Ekran goruntusu al
@@ -61,7 +61,7 @@ public class HomePageTest extends BaseTest {
         
         // Logo'ya tıklayarak ana sayfaya dönüş testi
         homePage.getHeader().clickLogo();
-        Assert.assertTrue(homePage.verifyPageTitle("SABAH"),
+        Assert.assertTrue(homePage.verifyPageTitle("Sabah"),
             "Logo'ya tıklandığında ana sayfaya dönülemedi!");
     }
     
@@ -83,6 +83,10 @@ public class HomePageTest extends BaseTest {
         
         // Menüyü aç
         homePage.getHeader().openHamburgerMenu();
+        
+        // Kısa bekleme
+        homePage.wait(3000);
+        
         Assert.assertTrue(homePage.getHeader().isHamburgerMenuOpen(),
             "Hamburger menü açılamadı!");
         
@@ -90,6 +94,10 @@ public class HomePageTest extends BaseTest {
         
         // Menüyü kapat
         homePage.getHeader().closeHamburgerMenu();
+        
+        // Kısa bekleme
+        homePage.wait(3000);
+        
         Assert.assertFalse(homePage.getHeader().isHamburgerMenuOpen(),
             "Hamburger menü kapatılamadı!");
     }

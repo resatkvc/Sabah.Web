@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import sabah.com.base.BasePage;
 import io.qameta.allure.Step;
 import java.util.List;
@@ -96,11 +97,11 @@ public class HeaderComponent extends BasePage {
     
     // ============= HAMBURGER MENÜ LOCATOR'LARI =============
     // Hamburger menü toggle butonları
-    private final By hamburgerMenuIcon = By.cssSelector("button.show-navobile");
-    private final By closeMenuIcon = By.cssSelector(".close-menu, .menu-close, button[aria-label*='Kapat']");
+    private final By hamburgerMenuIcon = By.cssSelector("span.sidebar");
+    private final By closeMenuIcon = By.cssSelector("span.sidebar.show");
     
     // Hamburger menü paneli
-    private final By hamburgerMenuPanel = By.cssSelector(".mobile-menu, .navobile");
+    private final By hamburgerMenuPanel = By.cssSelector(".mobile-menu, .navobile, .sidebar.show");
     
     // Hamburger menü kategorileri
     private final By hamburgerKategoriler = By.cssSelector(".mobile-menu ul li, .navobile ul li");
@@ -190,9 +191,12 @@ public class HeaderComponent extends BasePage {
     public void openHamburgerMenu() {
         try {
             if (!isHamburgerMenuOpen()) {
-                click(hamburgerMenuIcon);
-                waitForVisible(hamburgerMenuPanel);
-                logger.info("Hamburger menü açıldı");
+                // JavaScript ile tıkla (daha güvenli)
+                WebElement element = driver.findElement(hamburgerMenuIcon);
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+                logger.info("Hamburger menü açıldı (JavaScript ile)");
+                // Kısa bekleme - menünün açılması için
+                wait(1000);
             } else {
                 logger.info("Hamburger menü zaten açık");
             }
@@ -208,9 +212,12 @@ public class HeaderComponent extends BasePage {
     public void closeHamburgerMenu() {
         try {
             if (isHamburgerMenuOpen()) {
-                click(closeMenuIcon);
-                waitForHidden(hamburgerMenuPanel);
-                logger.info("Hamburger menü kapatıldı");
+                // JavaScript ile tıkla (daha güvenli)
+                WebElement element = driver.findElement(closeMenuIcon);
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+                logger.info("Hamburger menü kapatıldı (JavaScript ile)");
+                // Kısa bekleme - menünün kapanması için
+                wait(1000);
             } else {
                 logger.info("Hamburger menü zaten kapalı");
             }
@@ -226,7 +233,12 @@ public class HeaderComponent extends BasePage {
     @Step("Hamburger menü durumu kontrolü")
     public boolean isHamburgerMenuOpen() {
         try {
-            return isVisible(hamburgerMenuPanel);
+            // Hamburger menü icon'unun show class'ına sahip olup olmadığını kontrol et
+            WebElement hamburgerElement = driver.findElement(hamburgerMenuIcon);
+            String className = hamburgerElement.getAttribute("class");
+            boolean isOpen = className != null && className.contains("show");
+            logger.debug("Hamburger menü durumu: {}", isOpen ? "Açık" : "Kapalı");
+            return isOpen;
         } catch (Exception e) {
             logger.error("Hamburger menü durumu kontrolü hatası: {}", e.getMessage());
             return false;

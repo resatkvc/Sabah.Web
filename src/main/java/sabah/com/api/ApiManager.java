@@ -144,10 +144,18 @@ public class ApiManager {
                 // İsteği gönder
                 HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
                 
+                // Headers'ı Map<String, String> formatına dönüştür
+                Map<String, String> headersMap = new HashMap<>();
+                response.headers().map().forEach((key, values) -> {
+                    if (!values.isEmpty()) {
+                        headersMap.put(key, values.get(0)); // İlk değeri al
+                    }
+                });
+                
                 ApiResponse apiResponse = new ApiResponse(
                         response.statusCode(),
                         response.body(),
-                        response.headers().map()
+                        headersMap
                 );
                 
                 logger.debug("API yanıtı alındı: Status={}, Body length={}", 
