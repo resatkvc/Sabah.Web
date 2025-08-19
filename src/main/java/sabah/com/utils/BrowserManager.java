@@ -23,8 +23,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Selenium WebDriver yönetimi için utility sınıfı
- * Browser açma, kapatma ve konfigürasyon işlemlerini yönetir
+ * Selenium WebDriver yonetimi icin utility sinifi
+ * Browser acma, kapatma ve konfigurasyon islemlerini yonetir
  */
 public class BrowserManager {
     
@@ -37,44 +37,44 @@ public class BrowserManager {
      * Private constructor - Singleton pattern
      */
     private BrowserManager() {
-        // Utility sınıfı olduğu için private constructor
+        // Utility sinifi oldugu icin private constructor
     }
     
     /**
-     * Browser'ı başlat ve yapılandır
-     * @return Yapılandırılmış WebDriver nesnesi
+     * Browser'i baslat ve yapilandir
+     * @return Yapilandirilmis WebDriver nesnesi
      */
-    @Step("Browser başlatılıyor")
+    @Step("Browser baslatiliyor")
     public static WebDriver initBrowser() {
         try {
             // Browser tipini config'den al
             String browserType = ConfigReader.getProperty(ConfigReader.BROWSER_TYPE, "chrome");
             boolean headless = ConfigReader.getBooleanProperty(ConfigReader.BROWSER_HEADLESS, false);
             
-            // Browser'ı başlat
+            // Browser'i baslat
             switch (browserType.toLowerCase()) {
                 case "chrome":
                     driver = createChromeDriver(headless);
-                    logger.info("Chrome browser başlatıldı");
+                    logger.info("Chrome browser baslatildi");
                     break;
                 case "firefox":
                     driver = createFirefoxDriver(headless);
-                    logger.info("Firefox browser başlatıldı");
+                    logger.info("Firefox browser baslatildi");
                     break;
                 case "edge":
                     driver = createEdgeDriver(headless);
-                    logger.info("Edge browser başlatıldı");
+                    logger.info("Edge browser baslatildi");
                     break;
                 case "safari":
                     driver = createSafariDriver(headless);
-                    logger.info("Safari browser başlatıldı");
+                    logger.info("Safari browser baslatildi");
                     break;
                 default:
                     driver = createChromeDriver(headless);
-                    logger.warn("Bilinmeyen browser tipi: {}. Chrome kullanılıyor.", browserType);
+                    logger.warn("Bilinmeyen browser tipi: {}. Chrome kullaniliyor.", browserType);
             }
             
-            // Browser ayarları
+            // Browser ayarlari
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(
                 java.time.Duration.ofSeconds(ConfigReader.getIntProperty(ConfigReader.WAIT_TIMEOUT_DEFAULT, 10))
@@ -83,12 +83,12 @@ public class BrowserManager {
                 java.time.Duration.ofSeconds(ConfigReader.getIntProperty(ConfigReader.PAGE_LOAD_TIMEOUT, 30))
             );
             
-            logger.info("Browser başarıyla başlatıldı: {}", browserType);
+            logger.info("Browser basariyla baslatildi: {}", browserType);
             return driver;
             
         } catch (Exception e) {
-            logger.error("Browser başlatma hatası: {}", e.getMessage());
-            throw new RuntimeException("Browser başlatılamadı", e);
+            logger.error("Browser baslatma hatasi: {}", e.getMessage());
+            throw new RuntimeException("Browser baslatilamadi", e);
         }
     }
     

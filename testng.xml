@@ -7,7 +7,7 @@
     </listeners>
     
     <!-- Parametreler -->
-    <parameter name="browser" value="chromium"/>
+    <parameter name="browser" value="chrome"/>
     <parameter name="headless" value="false"/>
     
     <!-- Test Grupları -->

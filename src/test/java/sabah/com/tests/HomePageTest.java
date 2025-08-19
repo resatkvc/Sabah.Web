@@ -9,34 +9,34 @@ import sabah.com.pages.HomePage;
 import io.qameta.allure.*;
 
 /**
- * Sabah.com Ana Sayfa Test Senaryoları
+ * Sabah.com Ana Sayfa Test Senaryolari
  */
 @Epic("Sabah.com Web Sitesi Testleri")
 @Feature("Ana Sayfa Testleri")
 public class HomePageTest extends BaseTest {
     
     /**
-     * Ana sayfanın başarıyla yüklendiğini kontrol et
+     * Ana sayfanin basariyla yuklendigini kontrol et
      */
     @Test(priority = 1, groups = {"smoke", "regression"})
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Ana Sayfa Yükleme")
-    @Description("Ana sayfanın tüm temel elementleri ile birlikte başarıyla yüklendiğini doğrula")
+    @Story("Ana Sayfa Yukleme")
+    @Description("Ana sayfanin tum temel elementleri ile birlikte basariyla yuklendigini dogrula")
     public void testHomePageLoading() {
-        logger.info("Ana sayfa yükleme testi başlıyor...");
+        logger.info("Ana sayfa yukleme testi basliyor...");
         
         HomePage homePage = new HomePage(driver);
         
-        // Ana sayfanın yüklendiğini doğrula
+        // Ana sayfanin yuklendigini dogrula
         Assert.assertTrue(homePage.isPageLoaded(), 
-            "Ana sayfa başarıyla yüklenemedi!");
+            "Ana sayfa basariyla yuklenemedi!");
         
-        // Sayfa başlığını kontrol et
+        // Sayfa basligini kontrol et
         Assert.assertTrue(homePage.verifyPageTitle("SABAH"), 
-            "Sayfa başlığı beklenen değeri içermiyor!");
+            "Sayfa basligi beklenen degeri icermiyor!");
         
-        // Ekran görüntüsü al
-        takeScreenshot("Ana Sayfa Yüklendi");
+        // Ekran goruntusu al
+        takeScreenshot("Ana Sayfa Yuklendi");
     }
     
     /**

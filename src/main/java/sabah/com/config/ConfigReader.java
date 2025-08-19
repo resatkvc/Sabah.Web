@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * Uygulama özelliklerini yönetmek için konfigürasyon okuyucu sınıfı
+ * Uygulama ozelliklerini yonetmek icin konfigurasyon okuyucu sinifi
  */
 public class ConfigReader {
     private static final Logger logger = LoggerFactory.getLogger(ConfigReader.class);
@@ -19,101 +19,101 @@ public class ConfigReader {
         try {
             loadConfig();
         } catch (ConfigurationException e) {
-            logger.error("Konfigürasyon dosyası yüklenemedi", e);
-            throw new RuntimeException("Konfigürasyon yüklenemedi", e);
+            logger.error("Konfigurasyon dosyasi yuklenemedi", e);
+            throw new RuntimeException("Konfigurasyon yuklenemedi", e);
         }
     }
     
     /**
-     * Properties dosyasından konfigürasyonu yükle
+     * Properties dosyasindan konfigurasyonu yukle
      */
     private static void loadConfig() throws ConfigurationException {
         File configFile = new File(CONFIG_FILE_PATH);
         if (!configFile.exists()) {
-            throw new ConfigurationException("Konfigürasyon dosyası bulunamadı: " + CONFIG_FILE_PATH);
+            throw new ConfigurationException("Konfigurasyon dosyasi bulunamadi: " + CONFIG_FILE_PATH);
         }
         
         config = new PropertiesConfiguration(configFile);
         config.setAutoSave(true);
-        logger.info("Konfigürasyon başarıyla yüklendi: {}", CONFIG_FILE_PATH);
+        logger.info("Konfigurasyon basariyla yuklendi: {}", CONFIG_FILE_PATH);
     }
     
     /**
-     * String özellik değerini al
+     * String ozellik degerini al
      */
     public static String getProperty(String key) {
         String value = config.getString(key);
         if (value == null) {
-            logger.warn("Özellik bulunamadı: {}", key);
+            logger.warn("Ozellik bulunamadi: {}", key);
         }
         return value;
     }
     
     /**
-     * Varsayılan değer ile string özellik al
+     * Varsayilan deger ile string ozellik al
      */
     public static String getProperty(String key, String defaultValue) {
         return config.getString(key, defaultValue);
     }
     
     /**
-     * Integer özellik değerini al
+     * Integer ozellik degerini al
      */
     public static int getIntProperty(String key) {
         return config.getInt(key);
     }
     
     /**
-     * Varsayılan değer ile integer özellik al
+     * Varsayilan deger ile integer ozellik al
      */
     public static int getIntProperty(String key, int defaultValue) {
         return config.getInt(key, defaultValue);
     }
     
     /**
-     * Boolean özellik değerini al
+     * Boolean ozellik degerini al
      */
     public static boolean getBooleanProperty(String key) {
         return config.getBoolean(key);
     }
     
     /**
-     * Varsayılan değer ile boolean özellik al
+     * Varsayilan deger ile boolean ozellik al
      */
     public static boolean getBooleanProperty(String key, boolean defaultValue) {
         return config.getBoolean(key, defaultValue);
     }
     
     /**
-     * Long özellik değerini al
+     * Long ozellik degerini al
      */
     public static long getLongProperty(String key) {
         return config.getLong(key);
     }
     
     /**
-     * Varsayılan değer ile long özellik al
+     * Varsayilan deger ile long ozellik al
      */
     public static long getLongProperty(String key, long defaultValue) {
         return config.getLong(key, defaultValue);
     }
     
     /**
-     * Özellik değerini ayarla
+     * Ozellik degerini ayarla
      */
     public static void setProperty(String key, Object value) {
         config.setProperty(key, value);
-        logger.debug("Özellik ayarlandı: {} = {}", key, value);
+        logger.debug("Ozellik ayarlandi: {} = {}", key, value);
     }
     
     /**
-     * Özelliğin var olup olmadığını kontrol et
+     * Ozelligin var olup olmadigini kontrol et
      */
     public static boolean containsKey(String key) {
         return config.containsKey(key);
     }
     
-    // Konfigürasyon anahtarları sabitler olarak
+    // Konfigurasyon anahtarlari sabitler olarak
     public static final String BASE_URL = "base.url";
     public static final String BROWSER_TYPE = "browser.type";
     public static final String BROWSER_HEADLESS = "browser.headless";

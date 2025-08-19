@@ -10,8 +10,8 @@ import sabah.com.utils.BrowserManager;
 import io.qameta.allure.Attachment;
 
 /**
- * Tüm test sınıflarının extend edeceği temel test sınıfı
- * Test öncesi ve sonrası işlemleri burada yönetilir
+ * Tum test siniflarinin extend edecegi temel test sinifi
+ * Test oncesi ve sonrasi islemleri burada yonetilir
  */
 public abstract class BaseTest {
     
@@ -19,85 +19,85 @@ public abstract class BaseTest {
     protected WebDriver driver;
     
     /**
-     * Test suite başlamadan önce bir kez çalışır
+     * Test suite baslamadan once bir kez calisir
      */
     @BeforeSuite
     public void beforeSuite() {
-        logger.info("=== Test Suite Başlıyor ===");
-        logger.info("Test Ortamı: {}", ConfigReader.getProperty(ConfigReader.TEST_ENVIRONMENT));
+        logger.info("=== Test Suite Basliyor ===");
+        logger.info("Test Ortami: {}", ConfigReader.getProperty(ConfigReader.TEST_ENVIRONMENT));
         logger.info("Base URL: {}", ConfigReader.getProperty(ConfigReader.BASE_URL));
         logger.info("Browser: {}", ConfigReader.getProperty(ConfigReader.BROWSER_TYPE));
         logger.info("Headless: {}", ConfigReader.getBooleanProperty(ConfigReader.BROWSER_HEADLESS));
     }
     
     /**
-     * Her test class'ından önce bir kez çalışır
+     * Her test class'indan once bir kez calisir
      */
     @BeforeClass
     public void beforeClass() {
-        logger.info("Test Class başlıyor: {}", this.getClass().getSimpleName());
+        logger.info("Test Class basliyor: {}", this.getClass().getSimpleName());
     }
     
     /**
-     * Her test metodundan önce çalışır
+     * Her test metodundan once calisir
      */
     @BeforeMethod
     public void beforeMethod() {
-        logger.info("Test metodu başlıyor...");
+        logger.info("Test metodu basliyor...");
         
-        // Browser'ı başlat
+        // Browser'i baslat
         driver = BrowserManager.initBrowser();
         
         // Ana sayfaya git
         BrowserManager.navigateToBaseUrl();
         
-        // Sayfa yükleme kontrolü
+        // Sayfa yukleme kontrolu
         try {
-            logger.info("Sayfa yükleme kontrolü yapılıyor...");
+            logger.info("Sayfa yukleme kontrolu yapiliyor...");
             
-            // Sayfa başlığını kontrol et
+            // Sayfa basligini kontrol et
             String pageTitle = driver.getTitle();
-            logger.info("Sayfa başlığı: {}", pageTitle);
+            logger.info("Sayfa basligi: {}", pageTitle);
             
-            // URL kontrolü
+            // URL kontrolu
             String currentUrl = driver.getCurrentUrl();
             logger.info("Mevcut URL: {}", currentUrl);
             
             if (!currentUrl.contains("sabah.com.tr")) {
-                logger.error("Yanlış URL'deyiz: {}", currentUrl);
-                throw new RuntimeException("Sayfa doğru URL'de değil: " + currentUrl);
+                logger.error("Yanlis URL'deyiz: {}", currentUrl);
+                throw new RuntimeException("Sayfa dogru URL'de degil: " + currentUrl);
             }
             
-            logger.info("Sayfa başarıyla yüklendi");
+            logger.info("Sayfa basariyla yuklendi");
             
         } catch (Exception e) {
-            logger.error("Sayfa yükleme hatası: {}", e.getMessage());
-            throw new RuntimeException("Sayfa yüklenemedi", e);
+            logger.error("Sayfa yukleme hatasi: {}", e.getMessage());
+            throw new RuntimeException("Sayfa yuklenemedi", e);
         }
         
-        logger.info("Test hazırlıkları tamamlandı");
+        logger.info("Test hazirliklari tamamlandi");
     }
     
     /**
-     * Her test metodundan sonra çalışır
+     * Her test metodundan sonra calisir
      */
     @AfterMethod
     public void afterMethod(ITestResult result) {
         try {
             // Test sonucunu logla
             if (result.isSuccess()) {
-                logger.info("✓ Test BAŞARILI: {}", result.getMethod().getMethodName());
+                logger.info("✓ Test BASARILI: {}", result.getMethod().getMethodName());
             } else {
-                logger.error("✗ Test BAŞARISIZ: {}", result.getMethod().getMethodName());
+                logger.error("✗ Test BASARISIZ: {}", result.getMethod().getMethodName());
                 logger.error("Hata: ", result.getThrowable());
                 
-                // Hata durumunda ekran görüntüsü al
+                // Hata durumunda ekran goruntusu al
                 if (ConfigReader.getBooleanProperty(ConfigReader.SCREENSHOT_ON_FAILURE, true)) {
                     takeScreenshotOnFailure(result.getMethod().getMethodName());
                 }
             }
             
-            // Test süresi
+            // Test suresi
             long duration = result.getEndMillis() - result.getStartMillis();
             logger.info("Test süresi: {} ms", duration);
             
