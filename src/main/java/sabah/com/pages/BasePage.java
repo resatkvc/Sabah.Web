@@ -50,8 +50,11 @@ public class BasePage {
     public boolean isElementDisplayed(By locator) {
         try {
             WaitUtils.waitForElementToBeVisible(driver, locator);
-            return driver.findElement(locator).isDisplayed();
+            boolean isDisplayed = driver.findElement(locator).isDisplayed();
+            System.out.println("Element is visible: " + locator + " - Displayed: " + isDisplayed);
+            return isDisplayed;
         } catch (Exception e) {
+            System.out.println("Element not visible within timeout: " + locator);
             return false;
         }
     }

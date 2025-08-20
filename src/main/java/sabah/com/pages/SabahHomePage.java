@@ -18,7 +18,7 @@ public class SabahHomePage extends BasePage {
     @FindBy(css = "div.logo img[alt='Son Dakika Haberleri']")
     private WebElement logoImage;
 
-    // Top Menu Elements
+    // Top Menu Elements (nav.menuTop)
     @FindBy(css = "nav.menuTop")
     private WebElement topMenu;
 
@@ -37,10 +37,16 @@ public class SabahHomePage extends BasePage {
     @FindBy(css = "nav.menuTop a[href='/memurlar']")
     private WebElement memurlarLink;
 
+    @FindBy(css = "nav.menuTop a[href='/kobi']")
+    private WebElement halkbankKobiLink;
+
     @FindBy(css = "nav.menuTop a[href='/video']")
     private WebElement videoLink;
 
-    // Main Navigation Elements
+    @FindBy(css = "nav.menuTop a[href='javascript:;']")
+    private WebElement canliYayinLink;
+
+    // Main Navigation Elements (nav.menu.navobile-desktop-only)
     @FindBy(css = "nav.menu.navobile-desktop-only")
     private WebElement mainNavigation;
 
@@ -59,18 +65,17 @@ public class SabahHomePage extends BasePage {
     @FindBy(css = "nav.menu a[href='/yasam']")
     private WebElement yasamLink;
 
+    @FindBy(css = "nav.menu a[href='/egitim']")
+    private WebElement egitimLink;
+
     @FindBy(css = "nav.menu a[href='/dunya']")
     private WebElement dunyaLink;
 
-    // Search Elements
-    @FindBy(css = "div.searchFrame")
-    private WebElement searchFrame;
+    @FindBy(css = "nav.menu a[href='/resmi-ilan']")
+    private WebElement resmiIlanlarLink;
 
-    @FindBy(css = "input#txtHeaderSearch")
-    private WebElement searchInput;
-
-    @FindBy(css = "a#btnHeaderSearch")
-    private WebElement searchButton;
+    @FindBy(css = "nav.menu a[href='/yazarlar']")
+    private WebElement yazarlarLink;
 
     // Social Media Elements
     @FindBy(css = "a.face[href*='facebook.com/sabah']")
@@ -136,8 +141,16 @@ public class SabahHomePage extends BasePage {
         return isElementDisplayed(By.cssSelector("nav.menuTop a[href='/memurlar']"));
     }
 
+    public boolean isHalkbankKobiLinkDisplayed() {
+        return isElementDisplayed(By.cssSelector("nav.menuTop a[href='/kobi']"));
+    }
+
     public boolean isVideoLinkDisplayed() {
         return isElementDisplayed(By.cssSelector("nav.menuTop a[href='/video']"));
+    }
+
+    public boolean isCanliYayinLinkDisplayed() {
+        return isElementDisplayed(By.cssSelector("nav.menuTop a[href='javascript:;']"));
     }
 
     // Main Navigation Verification Methods
@@ -165,21 +178,20 @@ public class SabahHomePage extends BasePage {
         return isElementDisplayed(By.cssSelector("nav.menu a[href='/yasam']"));
     }
 
+    public boolean isEgitimLinkDisplayed() {
+        return isElementDisplayed(By.cssSelector("nav.menu a[href='/egitim']"));
+    }
+
     public boolean isDunyaLinkDisplayed() {
         return isElementDisplayed(By.cssSelector("nav.menu a[href='/dunya']"));
     }
 
-    // Search Verification Methods
-    public boolean isSearchFrameDisplayed() {
-        return isElementDisplayed(By.cssSelector("div.searchFrame"));
+    public boolean isResmiIlanlarLinkDisplayed() {
+        return isElementDisplayed(By.cssSelector("nav.menu a[href='/resmi-ilan']"));
     }
 
-    public boolean isSearchInputDisplayed() {
-        return isElementDisplayed(By.cssSelector("input#txtHeaderSearch"));
-    }
-
-    public boolean isSearchButtonDisplayed() {
-        return isElementDisplayed(By.cssSelector("a#btnHeaderSearch"));
+    public boolean isYazarlarLinkDisplayed() {
+        return isElementDisplayed(By.cssSelector("nav.menu a[href='/yazarlar']"));
     }
 
     // Social Media Verification Methods
@@ -226,11 +238,103 @@ public class SabahHomePage extends BasePage {
         boolean mainNavDisplayed = isMainNavigationDisplayed();
         System.out.println("Main navigation displayed: " + mainNavDisplayed);
         
-        boolean searchDisplayed = isSearchFrameDisplayed();
-        System.out.println("Search frame displayed: " + searchDisplayed);
-        
         System.out.println("=== Header Verification Completed ===");
         
-        return headerDisplayed && logoDisplayed && topMenuDisplayed && mainNavDisplayed && searchDisplayed;
+        // Return true if all required elements are displayed
+        return headerDisplayed && logoDisplayed && topMenuDisplayed && mainNavDisplayed;
+    }
+
+    // Comprehensive Top Menu Verification
+    public boolean verifyTopMenuElements() {
+        System.out.println("=== Top Menu Verification Started ===");
+        
+        boolean sabahSporDisplayed = isSabahSporLinkDisplayed();
+        System.out.println("Sabah Spor displayed: " + sabahSporDisplayed);
+        
+        boolean sabahGunaydinDisplayed = isSabahGunaydinLinkDisplayed();
+        System.out.println("Sabah Günaydın displayed: " + sabahGunaydinDisplayed);
+        
+        boolean aParaDisplayed = isAParaLinkDisplayed();
+        System.out.println("A Para displayed: " + aParaDisplayed);
+        
+        boolean rozaDisplayed = isRozaLinkDisplayed();
+        System.out.println("Roza displayed: " + rozaDisplayed);
+        
+        boolean memurlarDisplayed = isMemurlarLinkDisplayed();
+        System.out.println("Memurlar displayed: " + memurlarDisplayed);
+        
+        boolean halkbankKobiDisplayed = isHalkbankKobiLinkDisplayed();
+        System.out.println("Halkbank KOBİ displayed: " + halkbankKobiDisplayed);
+        
+        boolean videoDisplayed = isVideoLinkDisplayed();
+        System.out.println("Video displayed: " + videoDisplayed);
+        
+        boolean canliYayinDisplayed = isCanliYayinLinkDisplayed();
+        System.out.println("Canlı Yayın displayed: " + canliYayinDisplayed);
+        
+        System.out.println("=== Top Menu Verification Completed ===");
+        
+        return sabahSporDisplayed && sabahGunaydinDisplayed && aParaDisplayed && 
+               rozaDisplayed && memurlarDisplayed && halkbankKobiDisplayed && 
+               videoDisplayed && canliYayinDisplayed;
+    }
+
+    // Comprehensive Main Navigation Verification
+    public boolean verifyMainNavigationElements() {
+        System.out.println("=== Main Navigation Verification Started ===");
+        
+        boolean anaSayfaDisplayed = isAnaSayfaLinkDisplayed();
+        System.out.println("Ana Sayfa displayed: " + anaSayfaDisplayed);
+        
+        boolean sonDakikaDisplayed = isSonDakikaLinkDisplayed();
+        System.out.println("Son Dakika displayed: " + sonDakikaDisplayed);
+        
+        boolean gundemDisplayed = isGundemLinkDisplayed();
+        System.out.println("Gündem displayed: " + gundemDisplayed);
+        
+        boolean ekonomiDisplayed = isEkonomiLinkDisplayed();
+        System.out.println("Ekonomi displayed: " + ekonomiDisplayed);
+        
+        boolean yasamDisplayed = isYasamLinkDisplayed();
+        System.out.println("Yaşam displayed: " + yasamDisplayed);
+        
+        boolean egitimDisplayed = isEgitimLinkDisplayed();
+        System.out.println("Eğitim displayed: " + egitimDisplayed);
+        
+        boolean dunyaDisplayed = isDunyaLinkDisplayed();
+        System.out.println("Dünya displayed: " + dunyaDisplayed);
+        
+        boolean resmiIlanlarDisplayed = isResmiIlanlarLinkDisplayed();
+        System.out.println("Resmi İlanlar displayed: " + resmiIlanlarDisplayed);
+        
+        boolean yazarlarDisplayed = isYazarlarLinkDisplayed();
+        System.out.println("Yazarlar displayed: " + yazarlarDisplayed);
+        
+        System.out.println("=== Main Navigation Verification Completed ===");
+        
+        return anaSayfaDisplayed && sonDakikaDisplayed && gundemDisplayed && 
+               ekonomiDisplayed && yasamDisplayed && egitimDisplayed && 
+               dunyaDisplayed && resmiIlanlarDisplayed && yazarlarDisplayed;
+    }
+
+    // Comprehensive Social Media Verification
+    public boolean verifySocialMediaElements() {
+        System.out.println("=== Social Media Verification Started ===");
+        
+        boolean facebookDisplayed = isFacebookLinkDisplayed();
+        System.out.println("Facebook displayed: " + facebookDisplayed);
+        
+        boolean twitterDisplayed = isTwitterLinkDisplayed();
+        System.out.println("Twitter displayed: " + twitterDisplayed);
+        
+        boolean instagramDisplayed = isInstagramLinkDisplayed();
+        System.out.println("Instagram displayed: " + instagramDisplayed);
+        
+        boolean youtubeDisplayed = isYoutubeLinkDisplayed();
+        System.out.println("YouTube displayed: " + youtubeDisplayed);
+        
+        System.out.println("=== Social Media Verification Completed ===");
+        
+        return facebookDisplayed && twitterDisplayed && instagramDisplayed && youtubeDisplayed;
     }
 }

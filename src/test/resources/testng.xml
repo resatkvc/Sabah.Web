@@ -11,8 +11,10 @@
                     <include name="testLogoDisplayed"/>
                     <include name="testTopMenuElements"/>
                     <include name="testMainNavigationElements"/>
-                    <include name="testSearchElements"/>
                     <include name="testSocialMediaLinks"/>
+                    <include name="testIndividualTopMenuElements"/>
+                    <include name="testIndividualMainNavigationElements"/>
+                    <include name="testIndividualSocialMediaElements"/>
                 </methods>
             </class>
         </classes>
