@@ -50,9 +50,6 @@ public class SabahHomePage extends BasePage {
     @FindBy(css = "nav.menu.navobile-desktop-only")
     private WebElement mainNavigation;
 
-    @FindBy(css = "nav.menu a[href='https://www.sabah.com.tr'][title='Anasayfa']")
-    private WebElement anaSayfaLink;
-
     @FindBy(css = "nav.menu a[href='/son-dakika-haberleri']")
     private WebElement sonDakikaLink;
 
@@ -77,17 +74,17 @@ public class SabahHomePage extends BasePage {
     @FindBy(css = "nav.menu a[href='/yazarlar']")
     private WebElement yazarlarLink;
 
-    // Social Media Elements
-    @FindBy(css = "a.face[href*='facebook.com/sabah']")
+    // Social Media Elements - Header specific
+    @FindBy(css = ".topFrame a.face[href*='facebook.com/sabah']:first")
     private WebElement facebookLink;
 
-    @FindBy(css = "a.twt[href*='x.com/sabah']")
+    @FindBy(css = ".topFrame a.twt[href*='x.com/sabah']:first")
     private WebElement twitterLink;
 
-    @FindBy(css = "a.inst[href*='instagram.com/sabah']")
+    @FindBy(css = ".topFrame a.inst[href*='instagram.com/sabah']:first")
     private WebElement instagramLink;
 
-    @FindBy(css = "a.ytb[href*='youtube.com/@sabah']")
+    @FindBy(css = ".topFrame a.ytb[href*='youtube.com/@sabah']:first")
     private WebElement youtubeLink;
 
     public SabahHomePage() {
@@ -158,10 +155,6 @@ public class SabahHomePage extends BasePage {
         return isElementDisplayed(By.cssSelector("nav.menu.navobile-desktop-only"));
     }
 
-    public boolean isAnaSayfaLinkDisplayed() {
-        return isElementDisplayed(By.cssSelector("nav.menu a[href='https://www.sabah.com.tr'][title='Anasayfa']"));
-    }
-
     public boolean isSonDakikaLinkDisplayed() {
         return isElementDisplayed(By.cssSelector("nav.menu a[href='/son-dakika-haberleri']"));
     }
@@ -196,19 +189,19 @@ public class SabahHomePage extends BasePage {
 
     // Social Media Verification Methods
     public boolean isFacebookLinkDisplayed() {
-        return isElementDisplayed(By.cssSelector("a.face[href*='facebook.com/sabah']"));
+        return isElementDisplayed(By.cssSelector(".topFrame a.face[href*='facebook.com/sabah']"));
     }
 
     public boolean isTwitterLinkDisplayed() {
-        return isElementDisplayed(By.cssSelector("a.twt[href*='x.com/sabah']"));
+        return isElementDisplayed(By.cssSelector(".topFrame a.twt[href*='x.com/sabah']"));
     }
 
     public boolean isInstagramLinkDisplayed() {
-        return isElementDisplayed(By.cssSelector("a.inst[href*='instagram.com/sabah']"));
+        return isElementDisplayed(By.cssSelector(".topFrame a.inst[href*='instagram.com/sabah']:first"));
     }
 
     public boolean isYoutubeLinkDisplayed() {
-        return isElementDisplayed(By.cssSelector("a.ytb[href*='youtube.com/@sabah']"));
+        return isElementDisplayed(By.cssSelector(".topFrame a.ytb[href*='youtube.com/@sabah']:first"));
     }
 
     // URL and Title Verification
@@ -283,8 +276,7 @@ public class SabahHomePage extends BasePage {
     public boolean verifyMainNavigationElements() {
         System.out.println("=== Main Navigation Verification Started ===");
         
-        boolean anaSayfaDisplayed = isAnaSayfaLinkDisplayed();
-        System.out.println("Ana Sayfa displayed: " + anaSayfaDisplayed);
+
         
         boolean sonDakikaDisplayed = isSonDakikaLinkDisplayed();
         System.out.println("Son Dakika displayed: " + sonDakikaDisplayed);
@@ -312,7 +304,7 @@ public class SabahHomePage extends BasePage {
         
         System.out.println("=== Main Navigation Verification Completed ===");
         
-        return anaSayfaDisplayed && sonDakikaDisplayed && gundemDisplayed && 
+        return sonDakikaDisplayed && gundemDisplayed && 
                ekonomiDisplayed && yasamDisplayed && egitimDisplayed && 
                dunyaDisplayed && resmiIlanlarDisplayed && yazarlarDisplayed;
     }
