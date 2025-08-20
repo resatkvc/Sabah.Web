@@ -180,11 +180,7 @@ public class SabahHomePageTest {
         // Navigate to homepage
         sabahHomePage.navigateToHomePage();
         
-        // Verify individual main navigation items
-        boolean anaSayfaDisplayed = sabahHomePage.isAnaSayfaLinkDisplayed();
-        System.out.println("Ana Sayfa displayed: " + anaSayfaDisplayed);
-        Assert.assertTrue(anaSayfaDisplayed, "Ana Sayfa link should be displayed");
-        
+        // Verify individual main navigation items (Ana Sayfa linki kaldırıldı)
         boolean sonDakikaDisplayed = sabahHomePage.isSonDakikaLinkDisplayed();
         System.out.println("Son Dakika displayed: " + sonDakikaDisplayed);
         Assert.assertTrue(sonDakikaDisplayed, "Son Dakika link should be displayed");
